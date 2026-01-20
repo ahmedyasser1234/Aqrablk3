@@ -7,7 +7,6 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // TheYearOfHandicrafts فقط - لا خطوط أخرى
         sans: ['TheYearOfHandicrafts'],
         'handicraft': ['TheYearOfHandicrafts'],
       },

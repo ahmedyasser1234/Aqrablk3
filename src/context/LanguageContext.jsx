@@ -6,64 +6,111 @@ import { TRANSLATIONS } from './translations';
 const LanguageContext = createContext(undefined);
 
 export const LanguageProvider = ({ children }) => {
-  // جلب اللغة من localStorage أو من HTML lang attribute
-  const [language, setLanguage] = useState(() => {
-    // أولاً: جرب من localStorage
-    const savedLanguage = localStorage.getItem('aqrablik-language');
-    if (savedLanguage) return savedLanguage;
-    
-    // ثانياً: جرب من HTML lang attribute
-    const htmlLang = document.documentElement.lang;
-    if (htmlLang && (htmlLang === 'ar' || htmlLang === 'en')) return htmlLang;
-    
-    // ثالثاً: جرب من اتجاه الصفحة
-    const dir = document.documentElement.dir;
-    if (dir === 'rtl') return 'ar';
-    if (dir === 'ltr') return 'en';
-    
-    // أخيراً: إفتراضي عربي
-    return 'ar';
-  });
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [language, setLanguage] = useState('ar'); // قيمة أولية فقط
 
-  const toggleLanguage = () => {
-    const newLanguage = language === 'ar' ? 'en' : 'ar';
-    setLanguage(newLanguage);
-    localStorage.setItem('aqrablik-language', newLanguage);
-  };
-
+  // Initialize language once on mount
   useEffect(() => {
-    console.log('🌐 تغيير اللغة إلى:', language);
+    const initializeLanguage = () => {
+      try {
+        // 1. Try to get from localStorage
+        const savedLang = localStorage.getItem('aqrablik-language');
+        
+        // 2. If found and valid, use it
+        if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+          console.log('📚 جلب اللغة من localStorage:', savedLang);
+          setLanguage(savedLang);
+          setIsInitialized(true);
+          return;
+        }
+        
+        // 3. Check HTML lang attribute
+        const htmlLang = document.documentElement.lang;
+        if (htmlLang && (htmlLang === 'ar' || htmlLang === 'en')) {
+          console.log('🌐 استخدام لغة HTML:', htmlLang);
+          localStorage.setItem('aqrablik-language', htmlLang);
+          setLanguage(htmlLang);
+          setIsInitialized(true);
+          return;
+        }
+        
+        // 4. Default to Arabic
+        console.log('⚡ استخدام اللغة الإفتراضية: العربية');
+        localStorage.setItem('aqrablik-language', 'ar');
+        setLanguage('ar');
+        setIsInitialized(true);
+        
+      } catch (error) {
+        console.error('❌ خطأ في تهيئة اللغة:', error);
+        setLanguage('ar');
+        setIsInitialized(true);
+      }
+    };
+
+    // Small delay to ensure no other scripts interfere
+    setTimeout(initializeLanguage, 100);
+  }, []);
+
+  // Toggle language function
+  const toggleLanguage = useCallback(() => {
+    const newLanguage = language === 'ar' ? 'en' : 'ar';
+    console.log('🔄 تبديل اللغة إلى:', newLanguage);
     
-    // حفظ اللغة في localStorage
-    localStorage.setItem('aqrablik-language', language);
+    setLanguage(newLanguage);
     
-    // تغيير direction للصفحة
+    try {
+      localStorage.setItem('aqrablik-language', newLanguage);
+      console.log('💾 حفظ اللغة في localStorage:', newLanguage);
+    } catch (error) {
+      console.warn('⚠️ لا يمكن حفظ اللغة في localStorage:', error);
+    }
+  }, [language]);
+
+  // Apply language changes
+  useEffect(() => {
+    if (!isInitialized) return;
+    
+    console.log('🎯 تطبيق اللغة:', language);
+    
+    // Apply to HTML document
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
     
-    // استخدام TheYearOfHandicrafts فقط
+    // Apply font
     document.body.style.fontFamily = "'TheYearOfHandicrafts', sans-serif";
     
-  }, [language]);
+  }, [language, isInitialized]);
 
-  // دالة للترجمة
+  // Translation function
   const t = useCallback((key) => {
+    if (!key) return '';
+    
+    // Check current language
     if (TRANSLATIONS[language] && TRANSLATIONS[language][key] !== undefined) {
       return TRANSLATIONS[language][key];
     }
     
+    // Fallback to other language
     const fallbackLang = language === 'ar' ? 'en' : 'ar';
     if (TRANSLATIONS[fallbackLang] && TRANSLATIONS[fallbackLang][key] !== undefined) {
       console.warn(`⚠️  لم يتم العثور على "${key}" في اللغة ${language}، استخدم ${fallbackLang}`);
       return TRANSLATIONS[fallbackLang][key];
     }
     
+    // Key not found
     console.error(`❌ المفتاح "${key}" غير موجود في ملف الترجمات`);
     return key;
   }, [language]);
 
+  const value = {
+    language,
+    toggleLanguage,
+    t,
+    isInitialized
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
