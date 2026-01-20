@@ -4,7 +4,7 @@ const CursorEffect = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState([]);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
-  const [cursorSize, setCursorSize] = useState(25); // حجم أصغر
+  const [cursorSize, setCursorSize] = useState(35); // حجم أصغر
   const requestRef = useRef(null);
   const particleIdCounter = useRef(0);
 
@@ -13,7 +13,7 @@ const CursorEffect = () => {
       setIsDesktop(window.innerWidth >= 1024);
       // حجم الماوس بحسب الشاشة
       if (window.innerWidth >= 1024) {
-        setCursorSize(25);   
+        setCursorSize(35);   
       }
     };
 
