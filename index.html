@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768690340/3333_onrxzm.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="theme-color" content="#080911" />
+    <meta name="description" content="أقربلك ميديا" />
+    <title>أقربلك ميديا - Aqrablik Media</title>
+
+    <style>
+      /* TheYearOfHandicrafts فقط */
+      @font-face {
+        font-family: 'TheYearOfHandicrafts';
+        src: url('/fonts/TheYearofHandicrafts.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+      }
+      
+      /* TheYearOfHandicrafts فقط - لا خطوط أخرى */
+      * {
+        font-family: 'TheYearOfHandicrafts' !important;
+      }
+      
+      /* إصلاح مشكلة overflow-x */
+      html, body {
+        font-family: 'TheYearOfHandicrafts';
+        background-color: #080911;
+        overflow-x: hidden; /* مهم لمنع الاسكرول الأفقي */
+        width: 100%;
+        max-width: 100vw; /* تأكد أن العرض لا يتعدى الشاشة */
+        margin: 0;
+        padding: 0;
+        color: white;
+        position: relative;
+      }
+      
+      /* تأكد أن #root يأخذ العرض الكامل بدون اسكرول */
+      #root {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+        position: relative;
+      }
+      
+      /* إخفاء الماوس */
+      @media (min-width: 1024px) {
+        *, *::before, *::after {
+          cursor: none !important;
+        }
+      }
+      
+      /* إزالة شريط التمرير الأفقي */
+      ::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      (function() {
+        console.log('🔧 تنظيف اللغة المخزنة...');
+        localStorage.removeItem('aqrablik-language');
+        localStorage.setItem('aqrablik-language', 'ar');
+        console.log('✅ اللغة العربية مفعلة');
+      })();
+    </script>
+  </body>
+</html>

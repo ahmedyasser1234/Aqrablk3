@@ -1,0 +1,10 @@
+{
+  "short_name": "أقربلك ميديا",
+  "name": "أقربلك ميديا - Aqrablik Media",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#080911",
+  "background_color": "#080911",
+  "dir": "rtl",
+  "lang": "ar"
+}
