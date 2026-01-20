@@ -9,7 +9,6 @@
     <title>أقربلك ميديا - Aqrablik Media</title>
 
     <style>
-      /* TheYearOfHandicrafts فقط */
       @font-face {
         font-family: 'TheYearOfHandicrafts';
         src: url('/fonts/TheYearofHandicrafts.otf') format('opentype');
@@ -18,12 +17,10 @@
         font-display: block;
       }
       
-      /* TheYearOfHandicrafts فقط - لا خطوط أخرى */
       * {
         font-family: 'TheYearOfHandicrafts' !important;
       }
       
-      /* إصلاح مشكلة overflow-x */
       html, body {
         font-family: 'TheYearOfHandicrafts';
         background-color: #080911;
@@ -62,13 +59,5 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script>
-      (function() {
-        console.log('🔧 تنظيف اللغة المخزنة...');
-        localStorage.removeItem('aqrablik-language');
-        localStorage.setItem('aqrablik-language', 'ar');
-        console.log('✅ اللغة العربية مفعلة');
-      })();
-    </script>
   </body>
 </html>

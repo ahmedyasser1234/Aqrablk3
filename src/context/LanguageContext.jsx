@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // src/context/LanguageContext.jsx
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { TRANSLATIONS } from './translations';
@@ -5,10 +6,23 @@ import { TRANSLATIONS } from './translations';
 const LanguageContext = createContext(undefined);
 
 export const LanguageProvider = ({ children }) => {
-  // جلب اللغة من localStorage
+  // جلب اللغة من localStorage أو من HTML lang attribute
   const [language, setLanguage] = useState(() => {
+    // أولاً: جرب من localStorage
     const savedLanguage = localStorage.getItem('aqrablik-language');
-    return savedLanguage || 'ar'; // إفتراضي عربي
+    if (savedLanguage) return savedLanguage;
+    
+    // ثانياً: جرب من HTML lang attribute
+    const htmlLang = document.documentElement.lang;
+    if (htmlLang && (htmlLang === 'ar' || htmlLang === 'en')) return htmlLang;
+    
+    // ثالثاً: جرب من اتجاه الصفحة
+    const dir = document.documentElement.dir;
+    if (dir === 'rtl') return 'ar';
+    if (dir === 'ltr') return 'en';
+    
+    // أخيراً: إفتراضي عربي
+    return 'ar';
   });
 
   const toggleLanguage = () => {
@@ -20,6 +34,9 @@ export const LanguageProvider = ({ children }) => {
   useEffect(() => {
     console.log('🌐 تغيير اللغة إلى:', language);
     
+    // حفظ اللغة في localStorage
+    localStorage.setItem('aqrablik-language', language);
+    
     // تغيير direction للصفحة
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
@@ -27,31 +44,22 @@ export const LanguageProvider = ({ children }) => {
     // استخدام TheYearOfHandicrafts فقط
     document.body.style.fontFamily = "'TheYearOfHandicrafts', sans-serif";
     
-    // إزالة أي روابط لـ Google Fonts
-    const googleFontsLink = document.querySelector('link[href*="fonts.googleapis.com/css2?family=Cairo"]');
-    if (googleFontsLink) {
-      googleFontsLink.remove();
-    }
-    
   }, [language]);
 
   // دالة للترجمة
   const t = useCallback((key) => {
-    // البحث المباشر في الكائن المسطح
     if (TRANSLATIONS[language] && TRANSLATIONS[language][key] !== undefined) {
       return TRANSLATIONS[language][key];
     }
     
-    // إذا لم يجد، ابحث في اللغة الأخرى
     const fallbackLang = language === 'ar' ? 'en' : 'ar';
     if (TRANSLATIONS[fallbackLang] && TRANSLATIONS[fallbackLang][key] !== undefined) {
       console.warn(`⚠️  لم يتم العثور على "${key}" في اللغة ${language}، استخدم ${fallbackLang}`);
       return TRANSLATIONS[fallbackLang][key];
     }
     
-    // إذا لم يجد في أي لغة
     console.error(`❌ المفتاح "${key}" غير موجود في ملف الترجمات`);
-    return key; // إرجاع المفتاح نفسه
+    return key;
   }, [language]);
 
   return (
