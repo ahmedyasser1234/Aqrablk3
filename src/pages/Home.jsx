@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import ScrollReveal from '../components/ScrollReveal';
-import BackgroundEffects from '../components/BackgroundEffects'; 
+import BackgroundEffects from '../components/BackgroundEffects';
 
 // مكون مساعد لإيقاف التأثير على الموبايل فقط دون تغيير التصميم
 const AdaptiveReveal = ({ children, ...props }) => {
@@ -118,7 +118,7 @@ const Hero = () => {
         </AdaptiveReveal>
 
         <div className="relative w-full max-w-full flex items-center justify-center">
-          <div 
+          <div
             className="absolute z-40 top-1/2 left-1/2 pointer-events-none transition-transform duration-500 ease-out flex flex-col items-center"
             style={{ transform: `translate(calc(-50% + ${(scrollPos - 0.5) * (language === 'ar' ? 80 : -80)}px), -10%)` }}
           >
@@ -133,18 +133,17 @@ const Hero = () => {
                 return (
                   <div key={index} className="relative flex flex-col items-center justify-center">
                     {isActive && (
-                      <img 
-                        src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768684802/Asset_1_fwpljm.png" 
-                        alt="ufo" 
-                        className="absolute -top-5 md:-top-7 w-4 h-4 md:w-6 md:h-6 animate-pulse" 
+                      <img
+                        src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768684802/Asset_1_fwpljm.png"
+                        alt="ufo"
+                        className="absolute -top-5 md:-top-7 w-4 h-4 md:w-6 md:h-6 animate-pulse"
                       />
                     )}
                     <button
                       onClick={() => scrollToIndex(index)}
-                      style={{ 
+                      style={{
                         backgroundColor: isActive ? service.color : 'rgba(255,255,255,0.2)',
                         width: isActive ? (window.innerWidth < 768 ? '25px' : '40px') : '8px',
-                        boxShadow: isActive ? `0 0 15px ${service.color}` : 'none'
                       }}
                       className="h-2 rounded-full transition-all duration-500 ease-in-out border-none outline-none"
                     />
@@ -155,7 +154,7 @@ const Hero = () => {
           </div>
 
           <AdaptiveReveal delay={0.4} className="w-full">
-            <div 
+            <div
               ref={sliderRef}
               onScroll={handleScroll}
               className="flex gap-4 md:gap-6 overflow-x-auto py-8 md:py-20 px-[20vw] md:px-[35vw] scrollbar-hide snap-x snap-mandatory w-full border-none"
@@ -163,15 +162,15 @@ const Hero = () => {
               {sliderData.map((service, index) => {
                 const isActive = activeIndex === index;
                 return (
-                  <Link 
+                  <Link
                     key={index} to={service.path}
-                    style={{ borderColor: isActive ? service.color : `${service.color}1a`, boxShadow: isActive ? `0 0 30px ${service.color}99` : 'none' }}
+                    style={{ borderColor: isActive ? service.color : `${service.color}1a` }}
                     className={`flex-shrink-0 w-[60vw] md:w-[550px] aspect-video rounded-xl md:rounded-2xl border-2 md:border-4 bg-[#161720]/40 backdrop-blur-sm overflow-hidden snap-center relative transition-all duration-500 block ${isActive ? 'scale-100 opacity-100' : 'scale-90 opacity-40 blur-[2px]'}`}
                   >
                     <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
                     <div className={`absolute inset-0 flex flex-col justify-end p-4 md:p-10 text-start bg-gradient-to-t from-black/80 transition-opacity ${isActive ? 'opacity-100' : 'opacity-0'}`}>
-                       <h3 className="text-lg md:text-2xl font-bold text-white mb-2">{service.name}</h3>
-                       <div className="w-8 md:w-12 h-1 rounded-full" style={{ backgroundColor: service.color }}></div>
+                      <h3 className="text-lg md:text-2xl font-bold text-white mb-2">{service.name}</h3>
+                      <div className="w-8 md:w-12 h-1 rounded-full" style={{ backgroundColor: service.color }}></div>
                     </div>
                   </Link>
                 );
@@ -243,7 +242,7 @@ const Ambition = () => {
 
       <div className="relative z-30 max-w-5xl w-full flex flex-col items-center text-center pt-24 md:pt-0">
         <AdaptiveReveal>
-          <h2 className="text-4xl md:text-8xl lg:text-[9rem] text-white glow-text drop-shadow-[0_0_30px_rgba(255,255,255,0.4)] mb-24 md:mb-0">
+          <h2 className="text-4xl md:text-8xl lg:text-[9rem] text-white glow-text mb-24 md:mb-0">
             {t('ambition.title')}
           </h2>
         </AdaptiveReveal>

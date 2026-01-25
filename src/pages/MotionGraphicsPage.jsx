@@ -1,16 +1,27 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext'; // تأكد من المسار الصحيح
+import { useLanguage } from '../context/LanguageContext';
 import ScrollReveal from '../components/ScrollReveal';
 
 // قائمة فيديوهات الموشن جرافيك
 const motionVideos = [
-  "0NgXkHQTt4U"
+  "0NgXkHQTt4U",
+  "LuBwtX5gGxU",
+  "OF2HItDjrFA"
 ];
 
 // قائمة فيديوهات الوايت بورد
 const whiteboardVideos = [
   "k9M60YJJ3iE",
   "jX8rBu-4Z2U"
+];
+
+
+
+const collageVideos = [
+  "kImgYtodqOk",
+  "rPMTC9LNaVc",
+  "OPky00oP48o",
+  "uFrh0QbAfBw"
 ];
 
 // مصفوفة الألوان للتنويع (أزرق، بنفسجي، تركواز)
@@ -72,7 +83,6 @@ const MotionGraphicsPage = () => {
             </button>
           </ScrollReveal>
         </div>
-        
       </section>
       
       {/* القسم الأول: معرض الموشن جرافيك */}
@@ -106,7 +116,38 @@ const MotionGraphicsPage = () => {
         </div>
       </section>
 
-      {/* القسم الثاني: معرض الوايت بورد */}
+      {/* القسم الثاني: كولاج */}
+      <section className="py-16 md:py-24 max-w-7xl mx-auto border-t border-white/5">
+        <ScrollReveal>
+          <h2 className="text-3xl md:text-5xl text-center glow-text mb-12 md:mb-20 font-black text-purple-300">
+            {t('page.montage.gallery')}
+          </h2>
+        </ScrollReveal>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+          {collageVideos.map((id, index) => (
+            <ScrollReveal key={`collage-${index}`} delay={index * 0.1}>
+              <div 
+                className="glowing-border-box vertical aspect-[9/16]"
+                style={{ '--glow-color': borderColors[index % borderColors.length] }}
+              >
+                <div className="inner-content w-full h-full rounded-[1.5rem] overflow-hidden relative z-10">
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${id}`} 
+                    title={`Collage Video ${index + 1}`}
+                    className="w-full h-full"
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerPolicy="strict-origin-when-cross-origin" 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* القسم الثالث: معرض الوايت بورد */}
       <section className="py-16 md:py-24 max-w-7xl mx-auto border-t border-white/5">
         <ScrollReveal>
           <h2 className="text-3xl md:text-5xl text-center glow-text mb-12 md:mb-20 font-black text-purple-400">

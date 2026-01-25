@@ -4,9 +4,13 @@ import ScrollReveal from '../components/ScrollReveal';
 
 // فيديوهات نماذج أعمال كتابة المحتوى (سكريبتات، إعلانات، إلخ)
 const contentVideos = [
-  "0NgXkHQTt4U",
+  "jX8rBu-4Z2U",
   "k9M60YJJ3iE",
-  "m2mdBK91kQY"
+  "3PFLbXvWNF4",
+  "UTOu0NEx4yE",
+  "ZF1a40JkekQ",
+  "NMe42TEOdoc",
+  "JxiqxiCEk-g"
 ];
 
 // ألوان التوهج (أزرق، بنفسجي، سماوي)
@@ -34,10 +38,10 @@ const ContentWritingPage = () => {
         {/* حاوية الصورة */}
         <div className="w-full lg:w-1/2 order-1">
           <ScrollReveal delay={0.3}>
-            <img 
-              src={language === 'en' ? 'https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768840765/writer_flip_ojbt6q.png' : 'https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686499/Asset_5_2x_vcffi4.png'} 
-              alt="Content Writing Astronaut" 
-              className={`w-full animate-float drop-shadow-[0_0_50px_rgba(59,130,246,0.3)] object-contain ${language === 'en' ? 'scale-x-[-1]' : ''}`} 
+            <img
+              src={language === 'en' ? 'https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768840765/writer_flip_ojbt6q.png' : 'https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686499/Asset_5_2x_vcffi4.png'}
+              alt="Content Writing Astronaut"
+              className={`w-full animate-float drop-shadow-[0_0_50px_rgba(59,130,246,0.3)] object-contain ${language === 'en' ? 'scale-x-[-1]' : ''}`}
             />
           </ScrollReveal>
         </div>
@@ -53,9 +57,9 @@ const ContentWritingPage = () => {
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.4} className="flex gap-4 justify-center lg:justify-start">
-            <a 
-              href="https://wa.me/201099822822" 
-              target="_blank" 
+            <a
+              href="https://wa.me/201099822822"
+              target="_blank"
               rel="noopener noreferrer"
               className="px-10 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] inline-block text-center"
             >
@@ -69,7 +73,7 @@ const ContentWritingPage = () => {
       <section className="py-12 max-w-7xl mx-auto mt-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <ScrollReveal delay={0.1}>
-            <div 
+            <div
               className="glowing-border-box h-full"
               style={{ '--glow-color': borderColors[0] }}
             >
@@ -81,7 +85,7 @@ const ContentWritingPage = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <div 
+            <div
               className="glowing-border-box h-full"
               style={{ '--glow-color': borderColors[1] }}
             >
@@ -93,7 +97,7 @@ const ContentWritingPage = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.3}>
-            <div 
+            <div
               className="glowing-border-box h-full"
               style={{ '--glow-color': borderColors[2] }}
             >
@@ -110,27 +114,27 @@ const ContentWritingPage = () => {
       <section className="py-16 max-w-7xl mx-auto border-t border-white/5 mt-10">
         <ScrollReveal>
           <h2 className="text-3xl md:text-5xl text-center glow-text mb-12 font-black text-blue-300">
-             {t('common.portfolio')}
+            {t('common.portfolio')}
           </h2>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {contentVideos.map((id, index) => (
             <ScrollReveal key={index} delay={index * 0.1}>
-              <div 
+              <div
                 className="glowing-border-box aspect-video"
                 style={{ '--glow-color': borderColors[index % borderColors.length] }}
               >
-                 <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
-                   <iframe 
-                     src={`https://www.youtube.com/embed/${id}`}
-                     title={`Content Video ${index + 1}`}
-                     className="w-full h-full"
-                     frameBorder="0" 
-                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                     referrerPolicy="strict-origin-when-cross-origin" 
-                     allowFullScreen
-                   ></iframe>
-                 </div>
+                <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${id}`}
+                    title={`Content Video ${index + 1}`}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                </div>
               </div>
             </ScrollReveal>
           ))}

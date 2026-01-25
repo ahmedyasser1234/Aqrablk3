@@ -6,104 +6,81 @@ import { TRANSLATIONS } from './translations';
 const LanguageContext = createContext(undefined);
 
 export const LanguageProvider = ({ children }) => {
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [language, setLanguage] = useState('ar'); // قيمة أولية فقط
-
-  // Initialize language once on mount
-  useEffect(() => {
-    const initializeLanguage = () => {
-      try {
-        // 1. Try to get from localStorage
-        const savedLang = localStorage.getItem('aqrablik-language');
-        
-        // 2. If found and valid, use it
-        if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
-          console.log('📚 جلب اللغة من localStorage:', savedLang);
-          setLanguage(savedLang);
-          setIsInitialized(true);
-          return;
-        }
-        
-        // 3. Check HTML lang attribute
-        const htmlLang = document.documentElement.lang;
-        if (htmlLang && (htmlLang === 'ar' || htmlLang === 'en')) {
-          console.log('🌐 استخدام لغة HTML:', htmlLang);
-          localStorage.setItem('aqrablik-language', htmlLang);
-          setLanguage(htmlLang);
-          setIsInitialized(true);
-          return;
-        }
-        
-        // 4. Default to Arabic
-        console.log('⚡ استخدام اللغة الإفتراضية: العربية');
-        localStorage.setItem('aqrablik-language', 'ar');
-        setLanguage('ar');
-        setIsInitialized(true);
-        
-      } catch (error) {
-        console.error('❌ خطأ في تهيئة اللغة:', error);
-        setLanguage('ar');
-        setIsInitialized(true);
-      }
-    };
-
-    // Small delay to ensure no other scripts interfere
-    setTimeout(initializeLanguage, 100);
-  }, []);
-
-  // Toggle language function
-  const toggleLanguage = useCallback(() => {
-    const newLanguage = language === 'ar' ? 'en' : 'ar';
-    console.log('🔄 تبديل اللغة إلى:', newLanguage);
-    
-    setLanguage(newLanguage);
-    
+  // Initialize state directly from localStorage to recognize language immediately
+  const [language, setLanguage] = useState(() => {
     try {
-      localStorage.setItem('aqrablik-language', newLanguage);
-      console.log('💾 حفظ اللغة في localStorage:', newLanguage);
+      const savedLang = localStorage.getItem('aqrablik-language');
+      if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+        return savedLang;
+      }
+      const htmlLang = document.documentElement.lang;
+      if (htmlLang && (htmlLang === 'ar' || htmlLang === 'en')) {
+        return htmlLang;
+      }
     } catch (error) {
-      console.warn('⚠️ لا يمكن حفظ اللغة في localStorage:', error);
+      console.error('Error reading language from local storage:', error);
+    }
+    return 'ar'; // Default fallback
+  });
+
+  const [isInitialized, setIsInitialized] = useState(true);
+
+  // Update localStorage and document attributes whenever language changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('aqrablik-language', language);
+      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = language;
+      document.body.style.fontFamily = "'TheYearOfHandicrafts', sans-serif";
+      console.log('Language updated to:', language);
+    } catch (error) {
+      console.error('Error updating language settings:', error);
     }
   }, [language]);
 
-  // Apply language changes
-  useEffect(() => {
-    if (!isInitialized) return;
-    
-    console.log('🎯 تطبيق اللغة:', language);
-    
-    // Apply to HTML document
-    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = language;
-    
-    // Apply font
-    document.body.style.fontFamily = "'TheYearOfHandicrafts', sans-serif";
-    
-  }, [language, isInitialized]);
+  // Toggle language function - now just redirects
+  const toggleLanguage = useCallback(() => {
+    const newLanguage = language === 'ar' ? 'en' : 'ar';
+    const currentPath = window.location.pathname;
+    // Replace /ar/ with /en/ or vice versa
+    // Assuming path starts with /ar or /en
+    const pathSegments = currentPath.split('/');
+    if (pathSegments[1] === 'ar' || pathSegments[1] === 'en') {
+      pathSegments[1] = newLanguage;
+      window.location.href = pathSegments.join('/');
+      // using window.location to ensure full reload or just use navigation?
+      // Better to use navigation if I had access to useNavigate, but I am in Provider.
+      // Actually, since this is a SPA, I should ideally use navigate.
+      // But Provider is outside Router in my new App.jsx? 
+      // No, LanguageProvider wraps Router.
+      // So I cannot use useNavigate here directly unless I move Provider inside.
+      // However, I can just do window.location.pathname mutation which is safe but full reload.
+      // User asked for "refresh on English stays English", so maybe full reload is fine?
+      // Or I can just expose `setLanguage` and let the UI components handle the navigation!
+      // Yes, let Navbar handle the navigation.
+    }
+  }, [language]);
 
-  // Translation function
   const t = useCallback((key) => {
     if (!key) return '';
-    
+
     // Check current language
     if (TRANSLATIONS[language] && TRANSLATIONS[language][key] !== undefined) {
       return TRANSLATIONS[language][key];
     }
-    
-    // Fallback to other language
+
+    // Fallback
     const fallbackLang = language === 'ar' ? 'en' : 'ar';
     if (TRANSLATIONS[fallbackLang] && TRANSLATIONS[fallbackLang][key] !== undefined) {
-      console.warn(`⚠️  لم يتم العثور على "${key}" في اللغة ${language}، استخدم ${fallbackLang}`);
       return TRANSLATIONS[fallbackLang][key];
     }
-    
-    // Key not found
-    console.error(`❌ المفتاح "${key}" غير موجود في ملف الترجمات`);
+
     return key;
   }, [language]);
 
   const value = {
     language,
+    setLanguage,
     toggleLanguage,
     t,
     isInitialized

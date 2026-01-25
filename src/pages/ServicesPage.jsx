@@ -3,23 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import ScrollReveal from '../components/ScrollReveal';
 
+// Updated Content (Lost Updates)
 const youtubeVideos = [
-  "0NgXkHQTt4U", 
+  "0NgXkHQTt4U",
   "k9M60YJJ3iE",
-  "m2mdBK91kQY"
+  "LuBwtX5gGxU"
 ];
 
 const montageVideos = [
-  "m2mdBK91kQY",
-  "0NgXkHQTt4U", 
-  "k9M60YJJ3iE"
+  "r9P6A24-MnI",
+  "S5vDJVYXQgo",
+  "QWHGHhZelyI"
 ];
 
 const webProjects = [
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686440/arct_o02dz4.png", url: "https://architectegypt.com" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686454/glax_asgtg5.png", url: "https://galaxyrepairuae.com" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686455/sharik_mwmenl.png", url: "https://sharke1.netlify.app" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686457/shelter_i6bufo.png", url: "https://shelterhouseofcheese.com" }
+  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769281547/mock_3_bn86ur.png", url: "https://architectegypt.com" },
+  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769278001/galaxy_mockup_tcy5oy.png", url: "https://galaxyrepairuae.com" },
+  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769282159/mock_sharik_zptlfz.png", url: "https://sharke1.netlify.app" },
+  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769281553/mock_2_fudft9.png", url: "https://shelterhouseofcheese.com" }
 ];
 
 const ServicesPage = () => {
@@ -30,10 +31,13 @@ const ServicesPage = () => {
   const [activeWeb, setActiveWeb] = useState(0);
   const [playingVideo, setPlayingVideo] = useState(null);
   const [playingMontage, setPlayingMontage] = useState(null);
-  
+
   const videoTimerRef = useRef(null);
   const montageTimerRef = useRef(null);
   const webTimerRef = useRef(null);
+
+  // Helper for routing
+  const p = (path) => `/${language}${path}`;
 
   const clearAllTimers = useCallback(() => {
     if (videoTimerRef.current) clearInterval(videoTimerRef.current);
@@ -126,11 +130,10 @@ const ServicesPage = () => {
             </ScrollReveal>
           </div>
         </div>
-        {/* تم حذف ديف الخلفية الزرقاء (blur glow) من هنا */}
       </section>
 
       {/* Motion Graphics Section */}
-      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-hidden">
+      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-visible">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
           <div className="w-full lg:w-2/5 flex justify-center relative lg:-mt-80 z-50 order-1 mb-8 md:mb-0">
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'} className="relative w-48 h-48 md:w-[28rem] md:h-[28rem] animate-float">
@@ -144,7 +147,7 @@ const ServicesPage = () => {
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'left' : 'right'}>
               <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.motion.desc')}</p>
             </ScrollReveal>
-            
+
             <ScrollReveal delay={0.2} className="w-full relative h-[250px] md:h-[350px] flex items-center justify-center [perspective:1200px]">
               <div className="relative w-full h-full flex items-center justify-center">
                 {youtubeVideos.map((id, index) => {
@@ -154,11 +157,11 @@ const ServicesPage = () => {
                   let styleClass = isActive ? "z-30 scale-100 opacity-100 shadow-[0_0_60px_rgba(59,130,246,0.4)] border-2 border-white/20 blur-0" : isPrev ? "z-10 -translate-x-[45%] scale-[0.65] opacity-30 blur-[4px]" : isNext ? "z-10 translate-x-[45%] scale-[0.65] opacity-30 blur-[4px]" : "opacity-0 scale-50 blur-xl";
                   return (
                     <div key={index} onClick={() => handleVideoClick(index)} className={`absolute transition-all duration-[800ms] w-[280px] md:w-[450px] aspect-video rounded-3xl overflow-hidden cursor-pointer ${styleClass}`}>
-                      <iframe 
+                      <iframe
                         title={`Motion Graphics Video ${index + 1}`}
-                        className="w-full h-full pointer-events-none" 
-                        src={`https://www.youtube.com/embed/${id}?controls=0&modestbranding=1&rel=0${isActive && playingVideo === id ? '&autoplay=1' : ''}`} 
-                        frameBorder="0" 
+                        className="w-full h-full pointer-events-none"
+                        src={`https://www.youtube.com/embed/${id}?controls=0&modestbranding=1&rel=0${isActive && playingVideo === id ? '&autoplay=1' : ''}`}
+                        frameBorder="0"
                         allowFullScreen
                       ></iframe>
                     </div>
@@ -166,16 +169,16 @@ const ServicesPage = () => {
                 })}
               </div>
             </ScrollReveal>
-            
+
             <ScrollReveal delay={0.3}>
-              <button onClick={() => navigate('/services/motion-graphics')} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/motion-graphics'))} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
       {/* Montage Section */}
-      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-hidden">
+      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-visible">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
           <div className="w-full lg:w-2/5 flex justify-center relative lg:-mt-[150px] z-50 order-1 lg:order-2 mb-8 md:mb-0">
             <ScrollReveal direction={language === 'ar' ? 'left' : 'right'} className="relative w-48 h-48 md:w-[32rem] md:h-[32rem] animate-float" style={{ animationDelay: '1s' }}>
@@ -189,7 +192,7 @@ const ServicesPage = () => {
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
               <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.montage.desc')}</p>
             </ScrollReveal>
-            
+
             <ScrollReveal delay={0.2} className="w-full relative h-[250px] md:h-[350px] flex items-center justify-center [perspective:1200px]">
               <div className="relative w-full h-full flex items-center justify-center">
                 {montageVideos.map((id, index) => {
@@ -199,11 +202,11 @@ const ServicesPage = () => {
                   let styleClass = isActive ? "z-30 scale-100 opacity-100 shadow-[0_0_60px_rgba(168,85,247,0.4)] border-2 border-white/20 blur-0" : isPrev ? "z-10 -translate-x-[45%] scale-[0.65] opacity-30 blur-[4px]" : isNext ? "z-10 translate-x-[45%] scale-[0.65] opacity-30 blur-[4px]" : "opacity-0 scale-50 blur-xl";
                   return (
                     <div key={index} onClick={() => handleMontageClick(index)} className={`absolute transition-all duration-[800ms] w-[280px] md:w-[450px] aspect-video rounded-3xl overflow-hidden cursor-pointer ${styleClass}`}>
-                      <iframe 
+                      <iframe
                         title={`Montage Video ${index + 1}`}
-                        className="w-full h-full pointer-events-none" 
-                        src={`https://www.youtube.com/embed/${id}?controls=0&modestbranding=1&rel=0${isActive && playingMontage === id ? '&autoplay=1' : ''}`} 
-                        frameBorder="0" 
+                        className="w-full h-full pointer-events-none"
+                        src={`https://www.youtube.com/embed/${id}?controls=0&modestbranding=1&rel=0${isActive && playingVideo === id ? '&autoplay=1' : ''}`}
+                        frameBorder="0"
                         allowFullScreen
                       ></iframe>
                     </div>
@@ -211,16 +214,16 @@ const ServicesPage = () => {
                 })}
               </div>
             </ScrollReveal>
-            
-            <ScrollReveal delay={0.3} className="w-full flex justify-center lg:justify-end">            
-              <button onClick={() => navigate('/services/montage')} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
+
+            <ScrollReveal delay={0.3} className="w-full flex justify-center lg:justify-end">
+              <button onClick={() => navigate(p('/services/montage'))} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
       {/* Photography Section */}
-      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-hidden">
+      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-visible">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
           <div className="w-full lg:w-2/5 flex justify-center relative lg:-mt-20 z-50 order-1 mb-8 md:mb-0">
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'} className="relative w-48 h-48 md:w-[28rem] md:h-[28rem] animate-float">
@@ -235,47 +238,47 @@ const ServicesPage = () => {
               <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.photography.desc')}</p>
             </ScrollReveal>
             <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-start lg:pe-20">
-              <button onClick={() => navigate('/services/photography')} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/photography'))} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
       {/* Design Section */}
-  <section className="relative py-2 md:py-20 px-6 md:px-10 z-20 overflow-hidden">
-  <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
-    
-    <div className="w-full lg:w-2/5 flex justify-center relative lg:mt-[-60px] z-10 order-1 lg:order-2 mb-8 md:mb-0">
-      <ScrollReveal direction={language === 'ar' ? 'left' : 'right'} className="relative w-40 h-40 md:w-[28rem] md:h-[28rem] animate-float" style={{ animationDelay: '1s' }}>
-        <img src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768844028/designer_flip_xbi533.png" alt="Design Astronaut" className={`w-full h-auto ${language === 'ar' ? 'scale-x-[-1]' : ''}`} />
-      </ScrollReveal>
-    </div>
+      <section className="relative py-2 md:py-20 px-6 md:px-10 z-20 overflow-visible">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
 
-    <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-end text-center lg:text-end order-2 lg:order-1">
-      <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
-        <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[150px]' : 'lg:translate-x-[260px]'} z-0 pointer-events-none whitespace-nowrap`}>
-          {t('service.design')}
-        </h2>
-      </ScrollReveal>
-      
-      <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
-        <p className={`text-gray-300 text-base md:text-xl max-w-[360px] leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[100px]' : 'lg:translate-x-[5px]'}`}>
-          {t('service.design.desc')}
-        </p>
-      </ScrollReveal>
+          <div className="w-full lg:w-2/5 flex justify-center relative lg:mt-[-60px] z-10 order-1 lg:order-2 mb-8 md:mb-0">
+            <ScrollReveal direction={language === 'ar' ? 'left' : 'right'} className="relative w-40 h-40 md:w-[28rem] md:h-[28rem] animate-float" style={{ animationDelay: '1s' }}>
+              <img src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768844028/designer_flip_xbi533.png" alt="Design Astronaut" className={`w-full h-auto ${language === 'ar' ? 'scale-x-[-1]' : ''}`} />
+            </ScrollReveal>
+          </div>
 
-      <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-end">
-        <button onClick={() => navigate('/services/design')} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">
-          {t('services.more')}
-        </button>
-      </ScrollReveal>
-    </div>
+          <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-end text-center lg:text-end order-2 lg:order-1">
+            <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
+              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[150px]' : 'lg:translate-x-[260px]'} z-0 pointer-events-none whitespace-nowrap`}>
+                {t('service.design')}
+              </h2>
+            </ScrollReveal>
 
-  </div>
-</section>
+            <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
+              <p className={`text-gray-300 text-base md:text-xl max-w-[360px] leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[100px]' : 'lg:translate-x-[5px]'}`}>
+                {t('service.design.desc')}
+              </p>
+            </ScrollReveal>
 
-            {/* Studio Rental Section */}
-      <section className="relative min-h-[60vh] md:min-h-[100vh] flex flex-col items-center justify-center text-center py-12 overflow-hidden">
+            <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-end">
+              <button onClick={() => navigate(p('/services/design'))} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">
+                {t('services.more')}
+              </button>
+            </ScrollReveal>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Studio Rental Section */}
+      <section className="relative min-h-[60vh] md:min-h-[100vh] flex flex-col items-center justify-center text-center py-12 overflow-visible">
         <div className="absolute inset-0 z-0">
           <img src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686452/bbb_k3mvpy.png" alt="Studio Background" className={`w-full h-full object-cover ${language === 'en' ? 'scale-x-[-1]' : ''}`} />
           <div className="absolute inset-0 "></div>
@@ -288,13 +291,13 @@ const ServicesPage = () => {
             <p className="text-gray-200 text-base md:text-2xl max-w-2xl mx-auto leading-relaxed mb-12">{t('service.studio.desc')}</p>
           </ScrollReveal>
           <ScrollReveal delay={0.4} className="flex justify-center">
-            <button onClick={() => navigate('/services/studio-rental')} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
+            <button onClick={() => navigate(p('/services/studio-rental'))} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
           </ScrollReveal>
         </div>
       </section>
 
       {/* Web Design Section */}
-      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-hidden">
+      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-visible">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
           <div className="w-full lg:w-2/5 flex justify-center relative lg:-mt-[300px] z-50 order-1 lg:order-2 mb-8 md:mb-0">
             <ScrollReveal direction={language === 'ar' ? 'left' : 'right'} className="relative w-48 h-48 md:w-[32rem] md:h-[32rem] animate-float" style={{ animationDelay: '1s' }}>
@@ -308,7 +311,7 @@ const ServicesPage = () => {
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
               <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.web.desc')}</p>
             </ScrollReveal>
-            
+
             <ScrollReveal delay={0.2} className="w-full relative h-[250px] md:h-[350px] flex items-center justify-center [perspective:1200px]">
               <div className="relative w-full h-full flex items-center justify-center">
                 {webProjects.map((project, index) => {
@@ -326,16 +329,16 @@ const ServicesPage = () => {
                 })}
               </div>
             </ScrollReveal>
-            
+
             <ScrollReveal delay={0.3} className="w-full flex justify-center lg:justify-end">
-              <button onClick={() => navigate('/services/web-design')} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/web-design'))} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
       {/* Content Writing Section */}
-      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-hidden">
+      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-visible">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
           <div className="w-full lg:w-2/5 flex justify-center relative lg:-mt-20 z-50 order-1 mb-8 md:mb-0">
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'} className="relative w-48 h-48 md:w-[28rem] md:h-[28rem] animate-float">
@@ -350,34 +353,34 @@ const ServicesPage = () => {
               <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.content.desc')}</p>
             </ScrollReveal>
             <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-start lg:pe-20">
-              <button onClick={() => navigate('/services/content-writing')} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/content-writing'))} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-     {/* Marketing Section */}
-  <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-hidden">
-    <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
-      <div className="w-full lg:w-2/5 flex justify-center relative lg:mt-[200px] z-50 order-1 lg:order-2 mb-8 md:mb-0">
-        <ScrollReveal direction={language === 'ar' ? 'left' : 'right'} className="relative w-48 h-48 md:w-[32rem] md:h-[32rem] animate-float" style={{ animationDelay: '1.5s' }}>
-          <img src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686481/Asset_6_2x_wo2ndl.png" alt="Marketing Astronaut" className={`w-full h-auto ${language === 'en' ? 'scale-x-[-1]' : ''}`} />
-        </ScrollReveal>
-      </div>
-      <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-end text-center lg:text-end order-2 lg:order-1">
-        <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
-          <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[220px]' : 'lg:translate-x-[220px]'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.marketing')}</h2>
-        </ScrollReveal>
-        <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
-          <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.marketing.desc')}</p>
-        </ScrollReveal>
-        <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-end lg:ps-20">
-          <button onClick={() => navigate('/services/marketing')} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
-        </ScrollReveal>
-      </div>
+      {/* Marketing Section */}
+      <section className="relative py-2 md:py-20 px-6 md:px-10 overflow-visible">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-16">
+          <div className="w-full lg:w-2/5 flex justify-center relative lg:mt-[200px] z-50 order-1 lg:order-2 mb-8 md:mb-0">
+            <ScrollReveal direction={language === 'ar' ? 'left' : 'right'} className="relative w-48 h-48 md:w-[32rem] md:h-[32rem] animate-float" style={{ animationDelay: '1.5s' }}>
+              <img src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686481/Asset_6_2x_wo2ndl.png" alt="Marketing Astronaut" className={`w-full h-auto ${language === 'en' ? 'scale-x-[-1]' : ''}`} />
+            </ScrollReveal>
+          </div>
+          <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-end text-center lg:text-end order-2 lg:order-1">
+            <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
+              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[220px]' : 'lg:translate-x-[220px]'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.marketing')}</h2>
+            </ScrollReveal>
+            <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
+              <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.marketing.desc')}</p>
+            </ScrollReveal>
+            <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-end lg:ps-20">
+              <button onClick={() => navigate(p('/services/marketing'))} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
-</div>
-);
+  );
 };
 export default ServicesPage;

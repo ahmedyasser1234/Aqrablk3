@@ -5,31 +5,47 @@ import ScrollReveal from '../components/ScrollReveal';
 // عينات من أعمال التصميم
 const brandingImages = [
   {
-    src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800&auto=format&fit=crop",
-    link: "#" 
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769009712/design_hook_ehqp2r.png",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
   },
   {
-    src: "https://images.unsplash.com/photo-1572044162444-ad60f128bde2?q=80&w=800&auto=format&fit=crop",
-    link: "#"
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769009712/design_galaxy_fw50ni.png",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
   },
   {
-    src: "https://images.unsplash.com/photo-1541462608141-ad60f128bde2?q=80&w=800&auto=format&fit=crop",
-    link: "#"
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769009711/design_dhai_lak0en.png",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
+  },
+  {
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769009710/design_d_asmaa_t4at5p.png",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
   }
 ];
 
 const graphicImages = [
   {
-    src: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
-    link: "#" 
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954658/%D8%A7%D9%84%D8%A7%D9%88_%D9%84-04_iqdx2j.jpg",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
   },
   {
-    src: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop",
-    link: "#"
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954569/Artboard_7_htbfwd.jpg",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
   },
   {
-    src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800&auto=format&fit=crop",
-    link: "#"
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954614/%D8%A7%D9%84%D8%A8%D9%88%D8%B3%D8%AA-02_b15blm.jpg",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
+  },
+  {
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768955108/002_w1pz7m.jpg",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
+  },
+  {
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768955493/%D8%A8%D8%B7%D8%A7%D9%82%D8%A7%D8%AA_%D8%A7%D9%84%D8%B5%D9%8A%D8%A7%D9%86%D8%A9_%D8%B5%D9%8A%D8%A7%D9%86%D8%A9_%D9%88%D8%AA%D9%86%D8%B8%D9%8A%D9%81_ayumhy.jpg",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
+  },
+  {
+    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768955830/%D8%A7%D8%B9%D9%84%D8%A7%D9%86_%D8%B9%D8%B2%D9%85%D9%8A_%D9%87%D8%AA%D8%AC%D9%85%D8%AF%D9%87%D8%A7_tmtx6s.jpg",
+    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
   }
 ];
 
@@ -56,16 +72,16 @@ const DesignPage = () => {
       <section className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10 md:gap-16 min-h-[60vh] md:min-h-[70vh]">
         <div className="w-full lg:w-1/2 order-1 lg:order-2">
           <ScrollReveal delay={0.3}>
-            <img 
-              src={language === 'ar' 
-                ? "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768848357/designer_ded03k.png" 
-                : "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768844028/designer_flip_xbi533.png"} 
-              alt="Design Astronaut" 
-              className={`w-full h-auto animate-float drop-shadow-[0_0_50px_rgba(168,85,247,0.3)] ${language === 'ar' ? 'scale-x-[-1]' : ''}`} 
+            <img
+              src={language === 'ar'
+                ? "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768848357/designer_ded03k.png"
+                : "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768844028/designer_flip_xbi533.png"}
+              alt="Design Astronaut"
+              className={`w-full h-auto animate-float drop-shadow-[0_0_50px_rgba(168,85,247,0.3)] ${language === 'ar' ? 'scale-x-[-1]' : ''}`}
             />
           </ScrollReveal>
         </div>
-      
+
         <div className="w-full lg:w-1/2 text-center lg:text-start order-2 lg:order-1">
           <ScrollReveal>
             <h1 className="text-4xl md:text-8xl glow-text mb-6 md:mb-8 text-purple-400 font-black">
@@ -78,9 +94,9 @@ const DesignPage = () => {
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.4} className="flex gap-4 justify-center lg:justify-start">
-            <a 
-              href="https://wa.me/201099822822" 
-              target="_blank" 
+            <a
+              href="https://wa.me/201099822822"
+              target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-full bg-purple-600 text-white font-bold hover:bg-purple-700 transition-all inline-block text-center shadow-lg shadow-purple-500/20"
             >
@@ -89,7 +105,7 @@ const DesignPage = () => {
           </ScrollReveal>
         </div>
       </section>
-      
+
       {/* branding section */}
       <section className="py-16 md:py-24 max-w-7xl mx-auto border-t border-white/5">
         <ScrollReveal>
@@ -100,18 +116,18 @@ const DesignPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {brandingImages.map((item, index) => (
             <ScrollReveal key={`brand-${index}`} delay={index * 0.1}>
-              <div 
+              <div
                 className="glowing-border-box aspect-[4/3] group"
                 style={{ '--glow-color': borderColors[index % borderColors.length] }}
               >
-                 <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
-                   <img src={item.src} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Branding Work" />
-                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                     <a href={item.link} className="text-white font-bold border border-white/30 px-6 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-all">
-                       {t('common.view_work')}
-                     </a>
-                   </div>
-                 </div>
+                <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
+                  <img src={item.src} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Branding Work" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <a href={item.link} className="text-white font-bold border border-white/30 px-6 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-all">
+                      {t('common.view_work')}
+                    </a>
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
           ))}
@@ -128,24 +144,24 @@ const DesignPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {graphicImages.map((item, index) => (
             <ScrollReveal key={`graphic-${index}`} delay={index * 0.1}>
-              <div 
-                className="glowing-border-box aspect-[2/3] group"
+              <div
+                className="glowing-border-box aspect-[2/2.5] group"
                 style={{ '--glow-color': borderColors[(index + 1) % borderColors.length] }}
               >
-                 <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
-                   <img src={item.src} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Graphic Design Work" />
-                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                     <a href={item.link} className="text-white font-bold border border-white/30 px-6 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-all">
-                       {t('common.view_work')}
-                     </a>
-                   </div>
-                 </div>
+                <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
+                  <img src={item.src} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Graphic Design Work" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <a href={item.link} className="text-white font-bold border border-white/30 px-6 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-all">
+                      {t('common.view_work')}
+                    </a>
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
           ))}
         </div>
       </section>
-      
+
       {/* Background Decor */}
       <div className="fixed top-1/2 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse"></div>
       <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-pink-600/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse" style={{ animationDelay: '2s' }}></div>

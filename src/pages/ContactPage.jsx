@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ScrollReveal from '../components/ScrollReveal';
 
-// ألوان التوهج (أزرق، بنفسجي، أخضر، أصفر)
+// Glow colors
 const borderColors = ['#3b82f6', '#a855f7', '#22c55e', '#eab308'];
 
 const ContactPage = () => {
@@ -14,6 +14,8 @@ const ContactPage = () => {
     service: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -22,17 +24,54 @@ const ContactPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handlePhoneClick = (phoneNumber) => {
+    window.location.href = `tel:${phoneNumber}`;
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:info@aqrablkmedia.com';
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert(t('page.contact.success_msg'));
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: ''
-    });
+    setIsSubmitting(true);
+    setSubmitStatus('sending');
+
+    const encode = (data) => {
+      return Object.keys(data)
+        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+        .join("&");
+    };
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "contact-form", ...formData })
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        alert(t('page.contact.success_msg'));
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: ''
+        });
+        setTimeout(() => setSubmitStatus(''), 3000);
+      } else {
+        setSubmitStatus('error');
+        alert('حدث خطأ أثناء الإرسال. حاول مرة أخرى.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus('error');
+      alert('حدث خطأ في الاتصال.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const services = [
@@ -53,13 +92,35 @@ const ContactPage = () => {
           overflow: hidden;
           z-index: 0;
           border-radius: 2rem;
-          /* تأثير التوهج الثابت */
           box-shadow: 0 0 30px -5px var(--glow-color);
           border: 1px solid var(--glow-color);
         }
+        .clickable-item {
+          cursor: pointer;
+          transition: transform 0.2s;
+        }
+        .clickable-item:hover {
+          transform: scale(1.02);
+        }
+        .status-success {
+          color: #22c55e;
+          background: rgba(34, 197, 94, 0.1);
+          padding: 10px;
+          border-radius: 10px;
+          text-align: center;
+          margin-top: 10px;
+        }
+        .status-error {
+          color: #ef4444;
+          background: rgba(239, 68, 68, 0.1);
+          padding: 10px;
+          border-radius: 10px;
+          text-align: center;
+          margin-top: 10px;
+        }
       `}</style>
       <section className="max-w-7xl mx-auto">
-        
+
         {/* Header Section */}
         <div className="text-center mb-16 md:mb-24">
           <ScrollReveal>
@@ -75,7 +136,7 @@ const ContactPage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
-          
+
           {/* Contact Information */}
           <div className={language === 'ar' ? 'text-right' : 'text-left'}>
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
@@ -83,11 +144,11 @@ const ContactPage = () => {
                 {t('page.contact.info_title')}
               </h2>
             </ScrollReveal>
-            
+
             <div className="space-y-6 md:space-y-8">
               {/* Phone */}
               <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
-                <div 
+                <div
                   className="glowing-border-box"
                   style={{ '--glow-color': borderColors[0] }}
                 >
@@ -99,8 +160,20 @@ const ContactPage = () => {
                     </div>
                     <div className={`flex-grow ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                       <p className="text-gray-400 text-sm mb-1 uppercase tracking-widest">{t('page.contact.phone')}</p>
-                      <p className="text-xl md:text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer" dir="ltr">01099822822</p>
-                      <p className="text-xl md:text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer" dir="ltr">01014700317</p>
+                      <p
+                        className="text-xl md:text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer clickable-item"
+                        dir="ltr"
+                        onClick={() => handlePhoneClick('01099822822')}
+                      >
+                        01099822822
+                      </p>
+                      <p
+                        className="text-xl md:text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer clickable-item"
+                        dir="ltr"
+                        onClick={() => handlePhoneClick('01014700317')}
+                      >
+                        01014700317
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -108,11 +181,14 @@ const ContactPage = () => {
 
               {/* Email */}
               <ScrollReveal delay={0.2} direction={language === 'ar' ? 'right' : 'left'}>
-                <div 
+                <div
                   className="glowing-border-box"
                   style={{ '--glow-color': borderColors[1] }}
                 >
-                  <div className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[#080911]/80 backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
+                  <div
+                    className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[#080911]/80 backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'} clickable-item`}
+                    onClick={handleEmailClick}
+                  >
                     <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-purple-500/20 flex items-center justify-center flex-shrink-0">
                       <svg className="w-7 h-7 md:w-8 md:h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -120,7 +196,9 @@ const ContactPage = () => {
                     </div>
                     <div className={`flex-grow ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                       <p className="text-gray-400 text-sm mb-1 uppercase tracking-widest">{t('page.contact.email')}</p>
-                      <p className="text-xl md:text-2xl font-bold text-white break-all hover:text-purple-400 transition-colors cursor-pointer">info@aqrablk.com</p>
+                      <p className="text-xl md:text-2xl font-bold text-white break-all hover:text-purple-400 transition-colors">
+                        info@aqrablkmedia.com
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -128,7 +206,7 @@ const ContactPage = () => {
 
               {/* Address */}
               <ScrollReveal delay={0.3} direction={language === 'ar' ? 'right' : 'left'}>
-                <div 
+                <div
                   className="glowing-border-box"
                   style={{ '--glow-color': borderColors[2] }}
                 >
@@ -149,7 +227,7 @@ const ContactPage = () => {
 
               {/* Working Hours */}
               <ScrollReveal delay={0.4} direction={language === 'ar' ? 'right' : 'left'}>
-                <div 
+                <div
                   className="glowing-border-box"
                   style={{ '--glow-color': borderColors[3] }}
                 >
@@ -177,8 +255,16 @@ const ContactPage = () => {
                 {t('page.contact.form_title')}
               </h2>
             </ScrollReveal>
-            
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+
+            <form
+              name="contact-form"
+              method="POST"
+              data-netlify="true"
+              onSubmit={handleSubmit}
+              className="space-y-4 md:space-y-6"
+            >
+              <input type="hidden" name="form-name" value="contact-form" />
+
               <ScrollReveal delay={0.1} direction={language === 'ar' ? 'left' : 'right'}>
                 <input
                   type="text"
@@ -246,16 +332,29 @@ const ContactPage = () => {
               <ScrollReveal delay={0.6} direction={language === 'ar' ? 'left' : 'right'}>
                 <button
                   type="submit"
-                  className="w-full px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-black hover:shadow-lg hover:shadow-blue-500/30 transition-all text-xl"
+                  disabled={isSubmitting}
+                  className={`w-full px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-black hover:shadow-lg hover:shadow-blue-500/30 transition-all text-xl ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
-                  {t('page.contact.form_submit')}
+                  {isSubmitting ? t('page.contact.sending') : t('page.contact.form_submit')}
                 </button>
               </ScrollReveal>
+
+              {submitStatus === 'success' && (
+                <div className="status-success">
+                  تم إرسال رسالتك بنجاح!
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="status-error">
+                  حدث خطأ أثناء الإرسال. حاول مرة أخرى.
+                </div>
+              )}
             </form>
           </div>
         </div>
       </section>
-      
+
       {/* Background Decor */}
       <div className="fixed top-1/3 left-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>
       <div className="fixed bottom-0 right-0 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>

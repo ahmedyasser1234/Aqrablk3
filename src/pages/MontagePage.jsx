@@ -4,16 +4,25 @@ import ScrollReveal from '../components/ScrollReveal';
 
 // قائمة فيديوهات المونتاج الطولي (Shorts)
 const verticalMontageVideos = [
-  "6i4Tpocv5C8"
+  "6i4Tpocv5C8",
+  "NgwymX-GIqI",
+  "yVrXzR_89a4",
+  "-6iLsXGn8BE",
+  "GuzsLnfPz48",
+  "QFd8La5hBEs",
+  "zbp2E5Ocbpo",
+  "NgwymX-GIqI",
+  "yVrXzR_89a4",
+  "-6iLsXGn8BE",
+  "GuzsLnfPz48",
+  "QFd8La5hBEs",
+  "zbp2E5Ocbpo"
 ];
 
 // قائمة فيديوهات المونتاج العرضي
 const horizontalMontageVideos = [
-  "CFC9RlT4iag",
+  "x92XEpVqeo4",
   "OF2HItDjrFA",
-  "VtiITVEEMcw",
-  "r9P6A24-MnI",
-  "GnU8Zt5mBVw"
 ];
 
 // مصفوفة الألوان للتنويع (بنفسجي، أزرق، وردي)
@@ -53,9 +62,9 @@ const MontagePage = () => {
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.4} className="flex gap-4 justify-center lg:justify-start">
-            <a 
-              href="https://wa.me/201099822822" 
-              target="_blank" 
+            <a
+              href="https://wa.me/201099822822"
+              target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-full bg-purple-600 text-white font-bold hover:bg-purple-700 transition-all hover:shadow-lg hover:shadow-purple-500/30 inline-block text-center"
             >
@@ -65,9 +74,9 @@ const MontagePage = () => {
         </div>
         <div className="w-full lg:w-1/2">
           <ScrollReveal delay={0.3}>
-            <img 
-              src={language === 'en' ? 'https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768840850/montir_flip_1_hjqsju.png' : 'https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686469/xxx_yv639q.png'} 
-              className={`w-full animate-float drop-shadow-[0_0_50px_rgba(168,85,247,0.3)] object-contain ${language === 'en' ? 'scale-x-[-1]' : ''}`} 
+            <img
+              src={language === 'en' ? 'https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768840850/montir_flip_1_hjqsju.png' : 'https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686469/xxx_yv639q.png'}
+              className={`w-full animate-float drop-shadow-[0_0_50px_rgba(168,85,247,0.3)] object-contain ${language === 'en' ? 'scale-x-[-1]' : ''}`}
               alt="Montage Astronaut"
             />
           </ScrollReveal>
@@ -75,36 +84,36 @@ const MontagePage = () => {
       </section>
 
       {/* القسم الأول: مونتاج طولي */}
-<section className="py-16 md:py-24 max-w-7xl mx-auto border-t border-white/5">
-  <ScrollReveal>
-    <h2 className="text-3xl md:text-5xl text-center glow-text mb-12 md:mb-20 font-black text-purple-300">
-      {t('page.montage.gallery_vertical')}
-    </h2>
-  </ScrollReveal>
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-    {verticalMontageVideos.map((id, index) => (
-      <ScrollReveal key={`vertical-${index}`} delay={index * 0.1}>
-        <div 
-          className="glowing-border-box vertical aspect-[9/16]"
-          style={{ '--glow-color': borderColors[index % borderColors.length] }}
-        >
-           {/* تم تعديل الريديوس هنا من 2.5rem إلى 1.5rem */}
-           <div className="inner-content w-full h-full rounded-[1.5rem] overflow-hidden relative z-10">
-             <iframe 
-               src={`https://www.youtube.com/embed/${id}`} 
-               title={`Vertical Montage ${index + 1}`}
-               className="w-full h-full"
-               frameBorder="0" 
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-               referrerPolicy="strict-origin-when-cross-origin" 
-               allowFullScreen
-             ></iframe>
-           </div>
+      <section className="py-16 md:py-24 max-w-7xl mx-auto border-t border-white/5">
+        <ScrollReveal>
+          <h2 className="text-3xl md:text-5xl text-center glow-text mb-12 md:mb-20 font-black text-purple-300">
+            {t('page.montage.gallery_vertical')}
+          </h2>
+        </ScrollReveal>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+          {verticalMontageVideos.map((id, index) => (
+            <ScrollReveal key={`vertical-${index}`} delay={index * 0.1}>
+              <div
+                className="glowing-border-box vertical aspect-[9/16]"
+                style={{ '--glow-color': borderColors[index % borderColors.length] }}
+              >
+                {/* تم تعديل الريديوس هنا من 2.5rem إلى 1.5rem */}
+                <div className="inner-content w-full h-full rounded-[1.5rem] overflow-hidden relative z-10">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${id}`}
+                    title={`Vertical Montage ${index + 1}`}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
-      </ScrollReveal>
-    ))}
-  </div>
-</section>
+      </section>
 
       {/* القسم الثاني: مونتاج عرضي */}
       <section className="py-16 md:py-24 max-w-7xl mx-auto border-t border-white/5">
@@ -116,21 +125,21 @@ const MontagePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {horizontalMontageVideos.map((id, index) => (
             <ScrollReveal key={`horizontal-${index}`} delay={index * 0.1}>
-              <div 
+              <div
                 className="glowing-border-box aspect-video"
                 style={{ '--glow-color': borderColors[(index + 1) % borderColors.length] }}
               >
-                 <div className="inner-content w-full h-full rounded-[2rem] overflow-hidden relative z-10">
-                   <iframe 
-                     src={`https://www.youtube.com/embed/${id}`} 
-                     title={`Horizontal Montage ${index + 1}`}
-                     className="w-full h-full"
-                     frameBorder="0" 
-                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                     referrerPolicy="strict-origin-when-cross-origin" 
-                     allowFullScreen
-                   ></iframe>
-                 </div>
+                <div className="inner-content w-full h-full rounded-[2rem] overflow-hidden relative z-10">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${id}`}
+                    title={`Horizontal Montage ${index + 1}`}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                </div>
               </div>
             </ScrollReveal>
           ))}

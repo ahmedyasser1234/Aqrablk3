@@ -9,7 +9,7 @@
 /* 3. تعريف الخط الخاص */
 @font-face {
   font-family: 'TheYearOfHandicrafts';
-  src: url('/audio/fonts/TheYearofHandicrafts.otf') format('opentype');
+  src: url('/fonts/TheYearofHandicrafts.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -22,7 +22,7 @@
 }
 
 html, body {
-  background-color: #080911;
+  background-color: transparent;
   color: white;
   overflow-x: hidden; /* منع الاسكرول الأفقي */
   margin: 0;

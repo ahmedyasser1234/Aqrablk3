@@ -8,13 +8,13 @@ export const TRANSLATIONS = {
     'nav.about': 'من نحن',
     'nav.contact': 'تواصل معنا',
     'nav.discover': 'إكتشف خدماتنا',
-    
+
     // Hero
     'hero.out_of_box': 'خرجنا من الصندوق بــــ',
     'hero.title': 'أفكـــار خــار ج الكوكــب',
     'hero.desc1': 'بإنطلاقة جديدة خرجنا خارج نطاق الفكر المحدود لننطلق بك في رحلة مليئة بالإبداع خارج الكوكب.',
     'hero.desc2': 'ولأن الخروج خارج الكوكب لا يصلح للجميع، فلدينا إمكانيات تدفعنا للمغامرة بكل أريحية وثقة.',
-    
+
     // Services Section
     'services.discover_title': 'اكتشـــــــــف',
     'services.main_title': 'خدمـــــــــاتنا',
@@ -26,38 +26,38 @@ export const TRANSLATIONS = {
     'service.web.desc': 'نصــمــم موقــع يخلــى بــراندك محطـــة مضيئــة في الفضــاء الرقمــى ، سهــل الوصـــول ، سـريــع ويـــســتــقبــــل زوارك كــــأنــــ_ــــهم ضـــيــوف VIP',
     'service.content.desc': 'محتـــــوى مكتــــوب مخصــــوص لبــــرانـــدك كلمـــــاتهـــا كـــأنهـــا إشـــارت ضوئيــــة توضـــح فكرتـــك تقنــــع عميلــك وتخليـــه يخــتـــارك من بــين كل الكواكب',
     'service.marketing.desc': 'استـــراتيجيـــات تسويـــق رقميـــة توصــل بــرانـــدك لأقـــرب مـــدار لعميلـــك، بحمــلات مدروســـة تـــرفــــع وعـــــي العلامــــة وتحـــــول الــفضــــولــيــيــن لعمــــلاء دائــمــيــن.',
-    
+
     // Services names for slider & titles
     'service.motion': 'موشـــن جرافيـــك',
-    'service.montage': 'مــــــونـــــتـــاج',
+    'service.montage': 'مــــــونــــ:ــــتاج',
     'service.photography': 'تصويـــر إحترافي',
     'service.design': 'التصميـــم',
     'service.studio': 'تأجيــر إستوديـــو',
     'service.web': 'تصميــم وتطويــر مواقــع الويــب',
     'service.content': 'كتابـــة المحتـــوى',
     'service.marketing': 'التسويـــق',
-    
+
     // Goals
     'goals.title': 'أهــدافنـــــا',
     'goals.desc_main': 'نعيد صياغة المحتوى المرئي والأفكار لنقدم كل ما هو جديد، ونعبر بصدق عن رؤية مستقبلية تنطلق من خطوات الماضي المليئة بالخبرة، والحاضر المعزز بالثقة.',
-    
+
     // Ambition
     'ambition.title': 'طموحنــــــا',
     'ambition.p1': 'الطموح بدون انطلاق لا يوصلك إلى ما تتمنى،',
     'ambition.p2': 'ونحن نصل ونطمح أكثر لأننا بالفعل انطلقنا،',
     'ambition.p3': 'فنحن في طريقنا قدمًا إلى المستقبل بإصرار',
     'ambition.p4': 'وعزيمة، فكن معنا شريكًا في الرحلة.',
-    
+
     // Idea Planting
     'idea.title': 'نزرع الفكرة',
     'idea.p1': 'البذرة لا تنمو إلا في أرض صالحة للزراعة، وكذلك الفكرة',
     'idea.p2': 'لا تزدهر إلا في بيئة مناسبة لنموها. ونحن نعرف جيدًا',
     'idea.p3': 'أين نزرع الفكرة وكيف نرعاها حتى تكبر وتؤتي ثمارها.',
-    
+
     // Footer
     'footer.rights': 'أقربلك ميديا - جميع الحقوق محفوظة',
     'footer.contact_us': 'تواصل معنا',
-    
+
     // Common Buttons & Labels
     'common.order_now': 'اطلب خدمتك الآن',
     'common.view_work': 'شاهد أعمالنا',
@@ -74,13 +74,13 @@ export const TRANSLATIONS = {
     'page.motion.desc': 'نحول الأفكار المعقدة إلى رسوم متحركة بسيطة وجذابة. موشن جرافيك يطيّر فكرتك في مدار جديد ويخطف أنظار العملاء من الثانية الأولى.',
     'page.motion.gallery_motion': 'معرض الموشن جرافيك',
     'page.motion.gallery_whiteboard': 'معرض الوايت بورد',
-    
+
     // Page: Montage
     'page.montage.title': 'مونتـــــــاج',
     'page.montage.desc': 'المونتاج هو روح الفيديو. نحن نقوم بقص ودمج لقطاتك بأسلوب سينمائي يروي قصة ويبني شعوراً لا ينسى لدى المشاهد.',
     'page.montage.gallery_vertical': 'مونتاج طولي (Reels & TikTok)',
     'page.montage.gallery_horizontal': 'مونتاج عرضي (Cinematic)',
-    
+
     // Page: Photography
     'page.photography.title': 'تصــويــر إحتــرافـــي',
     'page.photography.desc': 'نحن نؤمن أن الصورة هي ألف كلمة. في استوديوهاتنا, نلتقط لك لحظات تتجاوز الزمن، باستخدام أحدث المعدات العالمية وإضاءة تبرز أدق التفاصيل.',
@@ -138,6 +138,20 @@ export const TRANSLATIONS = {
     'page.marketing.step3_title': 'التحسين',
     'page.marketing.step3_desc': 'مراقبة النتائج وتطوير الاستراتيجية للوصول لأفضل عائد.',
 
+    'page.marketing.solutions_title': 'حلولنا التسويقية المتكاملة',
+    'page.marketing.sol1_title': 'الحملات الإعلانية الممولة',
+    'page.marketing.sol1_desc': 'نصل ببراندك للجمهور المستهدف عبر منصات التواصل وجوجل بدقة متناهية لزيادة المبيعات.',
+    'page.marketing.sol2_title': 'تحسين محركات البحث (SEO)',
+    'page.marketing.sol2_desc': 'نجعل موقعك يتصدر نتائج البحث في جوجل لجذب زوار مستهدفين بشكل دائم ومجاني.',
+    'page.marketing.sol3_title': 'إدارة صفحات السوشيال ميديا',
+    'page.marketing.sol3_desc': 'ندير تواجدك الرقمي باحترافية، من جدولة المنشورات وحتى التفاعل مع جمهورك لزيادة الولاء.',
+    'page.marketing.sol4_title': 'كتابة المحتوى البيعي',
+    'page.marketing.sol4_desc': 'نكتب نصوصاً إعلانية (Copywriting) لا تُقاوم تحول المشاهدين إلى عملاء دائمين.',
+    'page.marketing.sol5_title': 'التحليل والتقارير',
+    'page.marketing.sol5_desc': 'نقدم لك تقارير بالأرقام والبيانات توضح أداء حملاتك وعائد الاستثمار (ROI) بدقة.',
+    'page.marketing.sol6_title': 'الاستراتيجية والهوية',
+    'page.marketing.sol6_desc': 'نبني شخصية فريدة وصوتاً مميزاً لعلامتك التجارية يميزها عن كافة المنافسين في السوق.',
+
     // Page: About Us
     'page.about.title': 'عـــن أقربــلك ميديــا',
     'page.about.subtitle': 'رحلة إبداعية في عالم الإعلام والتسويق الرقمي، نقدم حلولاً مبتكرة تجمع بين الإبداع والتقنية لتحقيق أهداف عملائنا.',
@@ -176,8 +190,40 @@ export const TRANSLATIONS = {
     'page.contact.form_message': 'رسالتك *',
     'page.contact.form_submit': 'إرسال الرسالة',
     'page.contact.success_msg': 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.',
+
+    // Dashboard
+    'dashboard.title': 'لوحة التحكم والتحليلات',
+    'dashboard.welcome_admin': 'لوحة تحكم أقربلك ميديا',
+    'dashboard.login_title': 'دخول للوحة التحكم',
+    'dashboard.username': 'اسم المستخدم',
+    'dashboard.password': 'كلمة المرور',
+    'dashboard.total_visits': 'إجمالي الزيارات',
+    'dashboard.unique_pages': 'الصفحات الفريدة',
+    'dashboard.active_countries': 'الدول النشطة',
+    'dashboard.top_pages': 'الصفحات الأكثر زيارة',
+    'dashboard.top_countries': 'أكثر الدول زيارة',
+    'dashboard.loading': 'جاري تحميل البيانات...',
+    'dashboard.error': 'فشل تحميل البيانات. تأكد من تشغيل الباك اند.',
+    'dashboard.logout': 'تسجيل خروج',
+    'dashboard.retry': 'إعادة المحاولة',
+    'dashboard.system_error': 'خطأ في النظام',
+    'dashboard.sidebar_stats': 'الإحصائيات',
+    'dashboard.sidebar_messages': 'الرسائل',
+
+    // Chat labels
+    'chat.title': 'خدمة العملاء',
+    'chat.welcome': 'مرحباً! كيف يمكننا مساعدتك اليوم؟',
+    'chat.placeholder': 'اكتب رسالتك...',
+    'chat.inbox': 'صندوق الرسائل',
+    'chat.active_session': 'جلسة نشطة',
+    'chat.clear_btn': 'مسح المحادثة',
+    'chat.no_messages': 'اختر محادثة من القائمة للرد',
+    'chat.visitor': 'زائر',
+    'chat.support': 'الدعم',
+    'chat.select_convo': 'اختر محادثة لبدء الرد',
+    'chat.typing': 'اكتب ردك هنا...',
   },
-  
+
   en: {
     // Navbar
     'nav.home': 'Home',
@@ -186,13 +232,13 @@ export const TRANSLATIONS = {
     'nav.about': 'About Us',
     'nav.contact': 'Contact',
     'nav.discover': 'Discover Our Services',
-    
+
     // Hero
     'hero.out_of_box': 'Out of the box with...',
     'hero.title': 'Off-Planet Ideas',
     'hero.desc1': 'With a new launch, we moved beyond limited thinking to take you on a journey full of off-planet creativity.',
     'hero.desc2': 'Since leaving the planet is not for everyone, we have the capabilities to adventure with full comfort and confidence.',
-    
+
     // Services Section
     'services.discover_title': 'Discover',
     'services.main_title': 'Our Services',
@@ -204,7 +250,7 @@ export const TRANSLATIONS = {
     'service.web.desc': 'We design a website that makes your brand a bright station in digital space—accessible, fast, and welcoming your visitors as VIP guests.',
     'service.content.desc': 'Custom written content for your brand, words like light signals that clarify your idea, convince your client, and make them choose you among all planets.',
     'service.marketing.desc': 'Digital marketing strategies that bring your brand to the closest orbit of your client, with well-studied campaigns that raise brand awareness and turn the curious into permanent clients.',
-    
+
     // Services names
     'service.motion': 'Motion Graphics',
     'service.montage': 'Montage',
@@ -214,24 +260,24 @@ export const TRANSLATIONS = {
     'service.web': 'Web Design & Development',
     'service.content': 'Content Writing',
     'service.marketing': 'Marketing',
-    
+
     // Goals
     'goals.title': 'Our Goals',
     'goals.desc_main': 'We redefine visual content and ideas to present everything new, sincerely expressing a future vision stemming from experienced steps of the past and a confident present.',
-    
+
     // Ambition
     'ambition.title': 'Our Ambition',
     'ambition.p1': 'Ambition without action won\'t get you where you want,',
     'ambition.p2': 'And we aim higher because we have already launched,',
     'ambition.p3': 'We are pushing forward to the future with persistence',
     'ambition.p4': 'And determination. Join us as a partner in this journey.',
-    
+
     // Idea Planting
     'idea.title': 'Planting the Idea',
     'idea.p1': 'A seed only grows in fertile soil, and likewise, an idea',
     'idea.p2': 'Only flourishes in an environment suitable for its growth. We know well',
     'idea.p3': 'Where to plant the idea and how to nurture it to bear fruit.',
-    
+
     // Footer
     'footer.rights': 'Aqrablik Media - All Rights Reserved',
     'footer.contact_us': 'Contact Us',
@@ -252,7 +298,7 @@ export const TRANSLATIONS = {
     'page.motion.desc': 'We transform complex ideas into simple, attractive animations. Motion graphics fly your idea into a new orbit and capture customer attention from the first second.',
     'page.motion.gallery_motion': 'Motion Graphics Gallery',
     'page.motion.gallery_whiteboard': 'Whiteboard Gallery',
-    
+
     // Page: Montage
     'page.montage.title': 'Montage',
     'page.montage.desc': 'Editing is the soul of the video. We cut and merge your footage with a cinematic style that tells a story and builds an unforgettable feeling for the viewer.',
@@ -316,6 +362,20 @@ export const TRANSLATIONS = {
     'page.marketing.step3_title': 'Optimization',
     'page.marketing.step3_desc': 'Monitoring results and developing the strategy to reach the best ROI.',
 
+    'page.marketing.solutions_title': 'Our Integrated Marketing Solutions',
+    'page.marketing.sol1_title': 'Paid Advertising Campaigns',
+    'page.marketing.sol1_desc': 'Reach your target audience across social platforms and Google with precision to boost sales.',
+    'page.marketing.sol2_title': 'Search Engine Optimization (SEO)',
+    'page.marketing.sol2_desc': 'We put your site at the top of Google results to drive permanent organic traffic.',
+    'page.marketing.sol3_title': 'Social Media Management',
+    'page.marketing.sol3_desc': 'We professionally manage your digital presence, from scheduling posts to engaging with your audience.',
+    'page.marketing.sol4_title': 'High-Converting Copywriting',
+    'page.marketing.sol4_desc': 'We write irresistible ad copy that converts viewers into loyal customers.',
+    'page.marketing.sol5_title': 'Analytics & Reporting',
+    'page.marketing.sol5_desc': 'We provide data-driven reports showing campaign performance and ROI accurately.',
+    'page.marketing.sol6_title': 'Strategy & Branding',
+    'page.marketing.sol6_desc': 'Building a unique brand personality and voice that sets you apart from competitors.',
+
     // Page: About Us
     'page.about.title': 'About Aqrablik Media',
     'page.about.subtitle': 'A creative journey in the world of media and digital marketing, offering innovative solutions that combine creativity and technology to achieve our clients\' goals.',
@@ -354,5 +414,37 @@ export const TRANSLATIONS = {
     'page.contact.form_message': 'Your Message *',
     'page.contact.form_submit': 'Send Message',
     'page.contact.success_msg': 'Your message has been sent successfully! We will contact you soon.',
+
+    // Dashboard
+    'dashboard.title': 'Analytics Dashboard',
+    'dashboard.welcome_admin': 'Aqrablik Media Dashboard',
+    'dashboard.login_title': 'Admin Login',
+    'dashboard.username': 'Username',
+    'dashboard.password': 'Password',
+    'dashboard.total_visits': 'Total Visits',
+    'dashboard.unique_pages': 'Unique Pages',
+    'dashboard.active_countries': 'Active Countries',
+    'dashboard.top_pages': 'Top Pages',
+    'dashboard.top_countries': 'Top Countries',
+    'dashboard.loading': 'Loading data...',
+    'dashboard.error': 'Failed to load data. Ensure backend is running.',
+    'dashboard.logout': 'Logout',
+    'dashboard.retry': 'Retry',
+    'dashboard.system_error': 'System Error',
+    'dashboard.sidebar_stats': 'Statistics',
+    'dashboard.sidebar_messages': 'Messages',
+
+    // Chat labels
+    'chat.title': 'Support Chat',
+    'chat.welcome': 'Hello! How can we help you today?',
+    'chat.placeholder': 'Type a message...',
+    'chat.inbox': 'Service Inbox',
+    'chat.active_session': 'Active Session',
+    'chat.clear_btn': 'Clear Conversation',
+    'chat.no_messages': 'Select a conversation to reply',
+    'chat.visitor': 'Visitor',
+    'chat.support': 'Support',
+    'chat.select_convo': 'Select a conversation to start replying',
+    'chat.typing': 'Type your reply here...',
   }
 };

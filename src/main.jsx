@@ -4,26 +4,17 @@ import { LanguageProvider } from './context/LanguageContext';
 import './index.css';
 import App from './App.jsx';
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(registrations => {
-    registrations.forEach(registration => {
-      console.log('🗑️  إزالة Service Worker قديم:', registration.scope);
-      registration.unregister();
-    });
-  });
-}
+console.log('🚀 Main.jsx Starting...');
 
 try {
-  localStorage.setItem('test-storage', 'test');
-  localStorage.removeItem('test-storage');
+  createRoot(document.getElementById('root')).render(
+    <StrictMode>
+      <LanguageProvider>
+        <App />
+      </LanguageProvider>
+    </StrictMode>
+  );
+  console.log('✅ Render Attempted');
 } catch (error) {
-  console.error(' localStorage غير متاح:', error);
+  console.error('❌ CRITICAL RENDER ERROR:', error);
 }
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <LanguageProvider>
-      <App />
-    </LanguageProvider>
-  </StrictMode>
-);
