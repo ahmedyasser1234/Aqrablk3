@@ -76,6 +76,7 @@ export const TRANSLATIONS = {
     'page.motion.desc': 'نحول الأفكار المعقدة إلى رسوم متحركة بسيطة وجذابة. موشن جرافيك يطيّر فكرتك في مدار جديد ويخطف أنظار العملاء من الثانية الأولى.',
     'page.motion.gallery_motion': 'معرض الموشن جرافيك',
     'page.motion.gallery_whiteboard': 'معرض الوايت بورد',
+    'page.montage.gallery' : 'كولاج' , 
 
     // Page: Montage
     'page.montage.title': 'مونتـــــــاج',
@@ -301,7 +302,7 @@ export const TRANSLATIONS = {
     'page.motion.desc': 'We transform complex ideas into simple, attractive animations. Motion graphics fly your idea into a new orbit and capture customer attention from the first second.',
     'page.motion.gallery_motion': 'Motion Graphics Gallery',
     'page.motion.gallery_whiteboard': 'Whiteboard Gallery',
-
+    'page.montage.gallery' : 'Collage' , 
     // Page: Montage
     'page.montage.title': 'Montage',
     'page.montage.desc': 'Editing is the soul of the video. We cut and merge your footage with a cinematic style that tells a story and builds an unforgettable feeling for the viewer.',
