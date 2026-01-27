@@ -29,14 +29,14 @@ const Hero = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const sliderData = [
-    { name: t('service.motion'), path: '/services/motion-graphics', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686440/arct_o02dz4.png", color: '#3b82f6' },
-    { name: t('service.montage'), path: '/services/montage', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686454/glax_asgtg5.png", color: '#a855f7' },
-    { name: t('service.photography'), path: '/services/photography', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686455/sharik_mwmenl.png", color: '#22d3ee' },
-    { name: t('service.studio'), path: '/services/studio-rental', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686457/shelter_i6bufo.png", color: '#fb923c' },
-    { name: t('service.web'), path: '/services/web-design', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686440/arct_o02dz4.png", color: '#6366f1' },
-    { name: t('service.content'), path: '/services/content-writing', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686454/glax_asgtg5.png", color: '#38bdf8' },
-    { name: t('service.marketing'), path: '/services/marketing', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686455/sharik_mwmenl.png", color: '#ec4899' },
-    { name: t('service.design'), path: '/services/design', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686455/sharik_mwmenl.png", color: '#2ee64d' },
+    { name: t('service.motion'), path: '/services/motion-graphics', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953994/slider_motion_tlngez.png", color: '#3b82f6' },
+    { name: t('service.montage'), path: '/services/montage', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953880/slider_edit_nevqxr.png", color: '#a855f7' },
+    { name: t('service.photography'), path: '/services/photography', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954110/slider_photgraph_mloxjg.png", color: '#22d3ee' },
+    { name: t('service.studio'), path: '/services/studio-rental', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954039/slider_studio_vcmsls.png", color: '#fb923c' },
+    { name: t('service.web'), path: '/services/web-design', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954079/slider_web_desiin_j7j8wj.png", color: '#6366f1' },
+    { name: t('service.content'), path: '/services/content-writing', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954117/slider_wreiter_ipuawb.png", color: '#38bdf8' },
+    { name: t('service.marketing'), path: '/services/marketing', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953988/slider_markting_bz8ax1.png", color: '#ec4899' },
+    { name: t('service.design'), path: '/services/design', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953715/slider_design_gsjqck.png", color: '#2ee64d' },
 
   ];
 
