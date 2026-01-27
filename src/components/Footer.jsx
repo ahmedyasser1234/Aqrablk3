@@ -26,18 +26,10 @@ const Footer = () => {
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col justify-center items-center gap-8 md:flex-row md:justify-between md:items-end md:gap-0">
 
         {/* Contact Info */}
-       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col justify-center items-center gap-8 md:flex-row md:justify-between md:items-end md:gap-0">
-        
-        {/* معلومات التواصل */}
-        <div className={`w-full md:w-1/3 flex flex-col items-center gap-2 order-2 ${
-          language === 'ar' ? 'md:order-3 md:items-end md:text-end' : 'md:order-1 md:items-start md:text-start'
-        }`}>
-          <h3 className="text-xl md:text-3xl font-bold text-white glow-text mb-1 md:mb-2">{t('footer.contact_us')}</h3>
-          
-          <div className={`flex flex-col items-center gap-2 md:gap-3 text-white/80 text-base md:text-xl font-medium ${
-            language === 'ar' ? 'md:items-end' : 'md:items-start'
+        <div className={`w-full md:w-1/3 flex flex-col items-center gap-2 order-2 ${language === 'ar' ? 'md:order-3 md:items-end' : 'md:order-1 md:items-start'
           }`}>
-            <div className="flex items-center gap-2 md:gap-3 group">
+          <div className="flex flex-col gap-2">
+             <div className="flex items-center gap-2 md:gap-3 group">
               <a href="tel:+201099822822" className="hover:text-blue-400 transition-colors order-1 text-sm md:text-xl" dir="ltr">+20 109 982 2822</a>
               <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 md:w-5 md:h-5 text-blue-400 opacity-70 group-hover:opacity-100 transition-opacity order-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
