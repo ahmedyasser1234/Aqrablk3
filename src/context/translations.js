@@ -25,8 +25,10 @@ export const TRANSLATIONS = {
     'service.design.desc': 'في قسم التصميم نحول الخيال إلى لوحات حية؛ فريقنا من الرسامين والمصممين يصنع عوالم بصرية تبدو وكأنها آتية من خارج الكوكب.',
     'service.web.desc': 'نصــمــم موقــع يخلــى بــراندك محطـــة مضيئــة في الفضــاء الرقمــى ، سهــل الوصـــول ، سـريــع ويـــســتــقبــــل زوارك كــــأنــــــــهم ضـــيــوف VIP',
     'service.content.desc': 'محتـــــوى مكتــــوب مخصــــوص لبــــرانـــدك كلمـــــاتهـــا كـــأنهـــا إشـــارت ضوئيــــة توضـــح فكرتـــك تقنــــع عميلــك وتخليـــه يخــتـــارك من بــين كل الكواكب',
+    'service.studio.desc' : 'استوديو مجهز كأنك على متن مركبة تصوير , إضاءة , معدات , ومساحة جاهزة لأي فكرة تحب تطلقها فى السماء'
     'service.marketing.desc': 'استـــراتيجيـــات تسويـــق رقميـــة توصــل بــرانـــدك لأقـــرب مـــدار لعميلـــك، بحمــلات مدروســـة تـــرفــــع وعـــــي العلامــــة وتحـــــول الــفضــــولــيــيــن لعمــــلاء دائــمــيــن.',
 
+    
     // Services names for slider & titles
     'service.motion': 'موشـــن جرافيـــك',
     'service.montage': 'مــــــونـــــــتاج',
@@ -250,6 +252,7 @@ export const TRANSLATIONS = {
     'service.web.desc': 'We design a website that makes your brand a bright station in digital space—accessible, fast, and welcoming your visitors as VIP guests.',
     'service.content.desc': 'Custom written content for your brand, words like light signals that clarify your idea, convince your client, and make them choose you among all planets.',
     'service.marketing.desc': 'Digital marketing strategies that bring your brand to the closest orbit of your client, with well-studied campaigns that raise brand awareness and turn the curious into permanent clients.',
+     'service.studio.desc' : 'A fully equipped studio that feels like you’re aboard a creative spacecraft — lighting, equipment, and a ready-to-use space for launching any idea you want into the sky.'
 
     // Services names
     'service.motion': 'Motion Graphics',
