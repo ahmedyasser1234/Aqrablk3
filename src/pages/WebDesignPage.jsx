@@ -12,7 +12,6 @@ const webProjects = [
 const shopifyProjects = [
   { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769535124/dhai_store_zuixcg.png", url: "https://dhai-store.com/" },
   { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769535128/shopy_2_dbgoiv.png", url: "https://fluffpuff.store/" },
-  { image: "https://images.unsplash.com/photo-1523474253046-2cd2c98a697b?q=80&w=800&auto=format&fit=crop", url: "#" }
 ];
 
 const borderColors = ['#a855f7', '#6366f1', '#a855f7'];
