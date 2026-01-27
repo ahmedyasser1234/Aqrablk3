@@ -150,10 +150,10 @@ const sliderData = [
       <section className="relative min-h-fit py-2 md:py-20 flex flex-col items-center overflow-visible z-30">
         <AdaptiveReveal delay={0.2} className="z-50 mb-6 md:mb-16">
           <Link to={`/${language}/services`}>
-  <button className="...">
-    {t('nav.discover')}
-  </button>
-</Link>
+            <button className="px-8 md:px-14 py-3 md:py-4 rounded-xl md:rounded-2xl bg-[#1a1b26]/60 border border-blue-500 text-blue-400 text-xl md:text-4xl font-bold backdrop-blur-xl transition-all hover:scale-105">
+        {t('nav.discover')}
+     </button>
+      </Link>
         </AdaptiveReveal>
 
         <div className="relative w-full max-w-full flex items-center justify-center">
