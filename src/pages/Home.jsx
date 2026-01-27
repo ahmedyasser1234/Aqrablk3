@@ -28,17 +28,56 @@ const Hero = () => {
   const [scrollPos, setScrollPos] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const sliderData = [
-    { name: t('service.motion'), path: '/ar/services/motion-graphics', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953994/slider_motion_tlngez.png", color: '#3b82f6' },
-    { name: t('service.montage'), path: '/ar/services/montage', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953880/slider_edit_nevqxr.png", color: '#a855f7' },
-    { name: t('service.photography'), path: '/ar/services/photography', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954110/slider_photgraph_mloxjg.png", color: '#22d3ee' },
-    { name: t('service.studio'), path: '/ar/services/studio-rental', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954039/slider_studio_vcmsls.png", color: '#fb923c' },
-    { name: t('service.web'), path: '/ar/services/web-design', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954079/slider_web_desiin_j7j8wj.png", color: '#6366f1' },
-    { name: t('service.content'), path: '/ar/services/content-writing', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954117/slider_wreiter_ipuawb.png", color: '#38bdf8' },
-    { name: t('service.marketing'), path: '/ar/services/marketing', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953988/slider_markting_bz8ax1.png", color: '#ec4899' },
-    { name: t('service.design'), path: '/ar/services/design', image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953715/slider_design_gsjqck.png", color: '#2ee64d' },
-
-  ];
+const sliderData = [
+  { 
+    name: t('service.motion'), 
+    path: `/${language}/services/motion-graphics`, 
+    image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953994/slider_motion_tlngez.png", 
+    color: '#3b82f6' 
+  },
+  { 
+    name: t('service.montage'), 
+    path: `/${language}/services/montage`, 
+    image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953880/slider_edit_nevqxr.png", 
+    color: '#a855f7' 
+  },
+  { 
+    name: t('service.photography'), 
+    path: `/${language}/services/photography`, 
+    image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954110/slider_photgraph_mloxjg.png", 
+    color: '#22d3ee' 
+  },
+  { 
+    name: t('service.studio'), 
+    path: `/${language}/services/studio-rental`, 
+    image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954039/slider_studio_vcmsls.png", 
+    color: '#fb923c' 
+  },
+  { 
+    name: t('service.web'), 
+    path: `/${language}/services/web-design`, 
+    image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954079/slider_web_desiin_j7j8wj.png", 
+    color: '#6366f1' 
+  },
+  { 
+    name: t('service.content'), 
+    path: `/${language}/services/content-writing`, 
+    image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954117/slider_wreiter_ipuawb.png", 
+    color: '#38bdf8' 
+  },
+  { 
+    name: t('service.marketing'), 
+    path: `/${language}/services/marketing`, 
+    image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953988/slider_markting_bz8ax1.png", 
+    color: '#ec4899' 
+  },
+  { 
+    name: t('service.design'), 
+    path: `/${language}/services/design`, 
+    image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768953715/slider_design_gsjqck.png", 
+    color: '#2ee64d' 
+  },
+];
 
   const scrollToIndex = (index) => {
     if (sliderRef.current) {
@@ -110,11 +149,11 @@ const Hero = () => {
 
       <section className="relative min-h-fit py-2 md:py-20 flex flex-col items-center overflow-visible z-30">
         <AdaptiveReveal delay={0.2} className="z-50 mb-6 md:mb-16">
-          <Link to="/ar/services">
-            <button className="px-8 md:px-14 py-3 md:py-4 rounded-xl md:rounded-2xl bg-[#1a1b26]/60 border border-blue-500 text-blue-400 text-xl md:text-4xl font-bold backdrop-blur-xl transition-all hover:scale-105">
-              {t('nav.discover')}
-            </button>
-          </Link>
+          <Link to={`/${language}/services`}>
+  <button className="...">
+    {t('nav.discover')}
+  </button>
+</Link>
         </AdaptiveReveal>
 
         <div className="relative w-full max-w-full flex items-center justify-center">
