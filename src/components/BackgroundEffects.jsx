@@ -7,25 +7,45 @@ const BackgroundEffects = () => {
     const starColors = [
       '#ffffff', '#f8f9fa', '#e3f2fd',
       '#cde6ffff', '#b5e3f8ff', '#9ceff8ff',
-      '#fffde7', '#fff9c4', '#fff59d'
+      '#fff9bfff', '#f8ebabff', '#fafab1ff',
+      '#ffe1baff', '#f8e0bdff'
     ];
 
     const allStars = [];
-    const count = 300;
 
-    for (let i = 0; i < count; i++) {
+    // نجوم خارجية
+    for (let i = 0; i < 5000; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const distanceFactor = (0.2 + Math.random() * 0.8) * 1.1;
+      
       allStars.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        radius: Math.random() * 1.5,
+        angle,
+        distanceFactor,
+        size: Math.pow(Math.random(), 10) * 1.6 + 0.3,
         color: starColors[Math.floor(Math.random() * starColors.length)],
-        blinkSpeed: 0.002 + Math.random() * 0.003,
+        rotationSpeed: (Math.random() * 0.0006 + 0.0002) * (Math.random() > 0.1 ? 1 : -1),
+        blinkSpeed: Math.random() * 0.003 + 0.001, 
         blinkOffset: Math.random() * Math.PI * 2,
-        rotationRadius: Math.random() * 20 + 10,
-        rotationSpeed: (Math.random() - 0.5) * 0.002,
-        angle: Math.random() * Math.PI * 2,
-        centerX: Math.random() * window.innerWidth,
-        centerY: Math.random() * window.innerHeight,
+        opacityBase: Math.random() * 0.3 + 0.1,
+        tilt: (Math.random() - 0.5) * 0.1 
+      });
+    }
+
+    // نجوم المركز
+    for (let i = 0; i < 150; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const distanceFactor = Math.random() * 0.30;
+      
+      allStars.push({
+        angle,
+        distanceFactor,
+        size: Math.random() * 1.2 + 0.2,
+        color: starColors[Math.floor(Math.random() * starColors.length)],
+        rotationSpeed: (Math.random() * 0.00001 + 0.000005),
+        blinkSpeed: Math.random() * 0.02 + 0.005, 
+        blinkOffset: Math.random() * Math.PI * 2,
+        opacityBase: Math.random() * 0.4 + 0.2,
+        tilt: (Math.random() - 0.5) * 0.05
       });
     }
 
@@ -65,15 +85,13 @@ const BackgroundEffects = () => {
       ctx.fillStyle = '#080911';
       ctx.fillRect(0, 0, width, height);
 
-      // Create subtle gradient
-      const gradient = ctx.createRadialGradient(
-        width / 2, height / 2, 0,
-        width / 2, height / 2, width
-      );
-      gradient.addColorStop(0, '#0f172a');
-      gradient.addColorStop(0.5, '#080911');
-      gradient.addColorStop(1, '#000000');
-
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const maxRadius = Math.max(width, height) * 0.9;
+      
+      const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius * 0.2);
+      gradient.addColorStop(0, 'rgba(10, 20, 50, 0.15)');
+      gradient.addColorStop(1, 'rgba(8, 9, 17, 0)');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
 
@@ -81,24 +99,24 @@ const BackgroundEffects = () => {
         star.angle += star.rotationSpeed;
 
         const blink = Math.sin(Date.now() * star.blinkSpeed + star.blinkOffset);
-        const alpha = 0.3 + (blink + 1) / 2 * 0.7;
+        const currentOpacity = star.opacityBase + (blink * 0.1);
+
+        const r = star.distanceFactor * maxRadius;
+        const x = centerX + Math.cos(star.angle) * r;
+        const y = centerY + Math.sin(star.angle) * r * 1 + (Math.cos(star.angle) * star.tilt * 20);
 
         ctx.beginPath();
-        // Simple star movement (drifting)
-        star.x += Math.cos(star.angle) * 0.1;
-        star.y += Math.sin(star.angle) * 0.1;
-
-        // Wrap around screen
-        if (star.x < 0) star.x = width;
-        if (star.x > width) star.x = 0;
-        if (star.y < 0) star.y = height;
-        if (star.y > height) star.y = 0;
-
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.arc(x, y, star.size, 0, Math.PI * 2);
         ctx.fillStyle = star.color;
-        ctx.globalAlpha = alpha;
+        ctx.globalAlpha = Math.max(0.05, Math.min(1, currentOpacity));
         ctx.fill();
-        ctx.globalAlpha = 1.0;
+
+        if (star.size > 1.5) {
+          ctx.shadowBlur = star.size * 1.5;
+          ctx.shadowColor = star.color;
+        } else {
+          ctx.shadowBlur = 0;
+        }
       });
 
       animationFrameId = requestAnimationFrame(render);
@@ -115,7 +133,8 @@ const BackgroundEffects = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full pointer-events-none -z-50"
+      className="fixed inset-0 pointer-events-none z-0"
+      style={{ display: 'block', background: '#080911' }}
     />
   );
 };
