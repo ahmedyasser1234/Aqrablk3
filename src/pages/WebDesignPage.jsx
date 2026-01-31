@@ -4,10 +4,10 @@ import ScrollReveal from '../components/ScrollReveal';
 
 const webProjects = [
   { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769281547/mock_3_bn86ur.png", url: "https://architectegypt.com" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769722475/mock5_h5bsot.png", url: "https://sharke1.netlify.app" },
+  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769722475/mock5_h5bsot.png", url: "https://centersanad.netlify.app" },
   { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769281553/mock_2_fudft9.png", url: "https://shelterhouseofcheese.com" },
   { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769282159/mock_sharik_zptlfz.png", url: "https://sharke1.netlify.app" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769278001/galaxy_mockup_tcy5oy.png", url: "https://centersanad.netlify.app" }
+  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769278001/galaxy_mockup_tcy5oy.png", url: "https://galaxyrepairuae.com" }
 ];
 
 const shopifyProjects = [
