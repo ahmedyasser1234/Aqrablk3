@@ -61,37 +61,8 @@ const Footer = () => {
         {/* Main Footer Grid */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 md:gap-0">
           
-          {/* Column 1: Contact Info */}
-          <div className={`w-full md:w-1/3 flex flex-col items-center ${language === 'ar' ? 'md:items-end' : 'md:items-start'}`}>
-            <div className="grid grid-cols-[auto_1fr] gap-x-3 md:gap-x-4 gap-y-2 md:gap-y-4 items-center" dir="ltr">
-              {/* Phone 1 */}
-              <div className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className={`${iconColor} w-4 h-4 md:w-5 md:h-5`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <a href="tel:+201099822822" className={`${textColor} hover:text-blue-500 transition-colors text-base md:text-xl tracking-wider`}>+20 109 982 2822</a>
-
-              {/* Phone 2 */}
-              <div className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className={`${iconColor} w-4 h-4 md:w-5 md:h-5`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <a href="tel:+201014700317" className={`${textColor} hover:text-blue-500 transition-colors text-base md:text-xl tracking-wider`}>+20 101 470 0317</a>
-
-              {/* Email */}
-              <div className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className={`${iconColor} w-4 h-4 md:w-5 md:h-5`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <a href="mailto:info@aqrablkmedia.com" className={`${textColor} hover:text-blue-500 transition-colors text-xs md:text-lg lowercase tracking-wide`}>info@aqrablkmedia.com</a>
-            </div>
-          </div>
-
-          {/* Column 2: Navigation Links (Centered on Desktop) */}
-          <div className="hidden md:flex w-full md:w-1/3 flex-col items-center gap-4">
+          {/* Column 1: Navigation Links (Side on Desktop) */}
+          <div className="hidden md:flex w-full md:w-1/3 flex-col items-center md:items-start gap-4">
             <a href={p('/')} className={`text-xl font-bold ${textColor} hover:text-blue-500 transition-all glow-text`}>{t('nav.home')}</a>
             <a href={p('/services')} className={`text-xl font-bold ${textColor} hover:text-blue-500 transition-all glow-text`}>{t('nav.services')}</a>
             <a href={p('/blog')} className={`text-xl font-bold ${textColor} hover:text-blue-500 transition-all glow-text`}>{t('nav.blog')}</a>
@@ -99,13 +70,13 @@ const Footer = () => {
             <a href={p('/contact')} className={`text-xl font-bold ${textColor} hover:text-blue-500 transition-all glow-text`}>{t('nav.contact')}</a>
           </div>
 
-          {/* Column 3: Logo and Newsletter */}
-          <div className={`w-full md:w-1/3 flex flex-col items-center ${language === 'ar' ? 'md:items-start' : 'md:items-end'} gap-3 md:gap-6`}>
+          {/* Column 2: Logo and Newsletter (Center on Desktop) */}
+          <div className="w-full md:w-1/3 flex flex-col items-center gap-3 md:gap-6">
             <img src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686064/Asset_3_ypwlqu.png" alt="Aqrablik Media" className="hidden md:block h-12 md:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
             
             {/* Newsletter Form */}
             <div className="w-full max-w-[280px] md:max-w-sm px-3 py-3 md:px-4 md:py-4 rounded-xl md:rounded-2xl backdrop-blur-md bg-white/5 border border-white/10 md:bg-transparent md:backdrop-blur-none md:border-none">
-              <h4 className={`${textColor} text-[9px] md:text-xs uppercase tracking-widest mb-2 md:mb-4 opacity-90 flex items-center gap-2 ${language === 'ar' ? 'justify-start md:justify-start' : 'justify-end md:justify-end'}`}>
+              <h4 className={`${textColor} text-[9px] md:text-xs uppercase tracking-widest mb-2 md:mb-4 opacity-90 flex items-center gap-2 justify-center`}>
                 {language === 'en' && <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>}
                 {language === 'ar' ? 'اشترك في النشرة الإخبارية' : 'Join our newsletter'}
                 {language === 'ar' && <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>}
@@ -133,6 +104,35 @@ const Footer = () => {
                   )}
                 </button>
               </form>
+            </div>
+          </div>
+
+          {/* Column 3: Contact Info (Side on Desktop) */}
+          <div className="w-full md:w-1/3 flex flex-col items-center md:items-end">
+            <div className="grid grid-cols-[auto_1fr] gap-x-3 md:gap-x-4 gap-y-2 md:gap-y-4 items-center" dir="ltr">
+              {/* Phone 1 */}
+              <div className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className={`${iconColor} w-4 h-4 md:w-5 md:h-5`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <a href="tel:+201099822822" className={`${textColor} hover:text-blue-500 transition-colors text-base md:text-xl tracking-wider`}>+20 109 982 2822</a>
+
+              {/* Phone 2 */}
+              <div className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className={`${iconColor} w-4 h-4 md:w-5 md:h-5`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <a href="tel:+201014700317" className={`${textColor} hover:text-blue-500 transition-colors text-base md:text-xl tracking-wider`}>+20 101 470 0317</a>
+
+              {/* Email */}
+              <div className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className={`${iconColor} w-4 h-4 md:w-5 md:h-5`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <a href="mailto:info@aqrablkmedia.com" className={`${textColor} hover:text-blue-500 transition-colors text-xs md:text-lg lowercase tracking-wide`}>info@aqrablkmedia.com</a>
             </div>
           </div>
         </div>
