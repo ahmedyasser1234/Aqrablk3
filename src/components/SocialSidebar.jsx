@@ -7,8 +7,21 @@ const SocialSidebar = () => {
   const location = useLocation();
   const [isAtBottom, setIsAtBottom] = useState(false);
 
-  // Hide on Dashboard
-  if (location.pathname.includes('/dashboard')) return null;
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      const isBottom = scrollTop + windowHeight >= documentHeight - 50;
+      setIsAtBottom(isBottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Define position: AR -> Left, EN -> Right
   const sideClass = language === 'ar' ? 'left-6' : 'right-6';
@@ -27,21 +40,8 @@ const SocialSidebar = () => {
 
   const alwaysVisibleIds = ['facebook', 'whatsapp', 'phone'];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-      const isBottom = scrollTop + windowHeight >= documentHeight - 50;
-      setIsAtBottom(isBottom);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Hide on Dashboard
+  if (location.pathname.includes('/dashboard')) return null;
 
   const renderLink = (social, index) => (
     <a

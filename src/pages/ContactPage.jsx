@@ -129,7 +129,7 @@ const ContactPage = () => {
             </h1>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
-            <p className="text-gray-300 text-base md:text-2xl leading-relaxed max-w-3xl mx-auto font-light">
+            <p className="text-[var(--text-color)]/70 text-base md:text-2xl leading-relaxed max-w-3xl mx-auto font-light">
               {t('page.contact.subtitle')}
             </p>
           </ScrollReveal>
@@ -140,7 +140,7 @@ const ContactPage = () => {
           {/* Contact Information */}
           <div className={language === 'ar' ? 'text-right' : 'text-left'}>
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
-              <h2 className="text-3xl md:text-4xl font-black mb-8 md:mb-12 text-white glow-text">
+              <h2 className="text-3xl md:text-4xl font-black mb-8 md:mb-12 text-[var(--text-color)] glow-text">
                 {t('page.contact.info_title')}
               </h2>
             </ScrollReveal>
@@ -152,23 +152,23 @@ const ContactPage = () => {
                   className="glowing-border-box"
                   style={{ '--glow-color': borderColors[0] }}
                 >
-                  <div className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[#080911]/80 backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
+                  <div className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[var(--glass-bg)] backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
                     <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
                       <svg className="w-7 h-7 md:w-8 md:h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
                     </div>
                     <div className={`flex-grow ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-                      <p className="text-gray-400 text-sm mb-1 uppercase tracking-widest">{t('page.contact.phone')}</p>
+                      <p className="text-[var(--text-color)]/60 text-sm mb-1 uppercase tracking-widest">{t('page.contact.phone')}</p>
                       <p
-                        className="text-xl md:text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer clickable-item"
+                        className="text-xl md:text-2xl font-bold text-[var(--text-color)] hover:text-blue-400 transition-colors cursor-pointer clickable-item"
                         dir="ltr"
                         onClick={() => handlePhoneClick('01099822822')}
                       >
                         01099822822
                       </p>
                       <p
-                        className="text-xl md:text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer clickable-item"
+                        className="text-xl md:text-2xl font-bold text-[var(--text-color)] hover:text-blue-400 transition-colors cursor-pointer clickable-item"
                         dir="ltr"
                         onClick={() => handlePhoneClick('01014700317')}
                       >
@@ -186,7 +186,7 @@ const ContactPage = () => {
                   style={{ '--glow-color': borderColors[1] }}
                 >
                   <div
-                    className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[#080911]/80 backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'} clickable-item`}
+                    className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[var(--glass-bg)] backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'} clickable-item`}
                     onClick={handleEmailClick}
                   >
                     <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-purple-500/20 flex items-center justify-center flex-shrink-0">
@@ -195,8 +195,8 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className={`flex-grow ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-                      <p className="text-gray-400 text-sm mb-1 uppercase tracking-widest">{t('page.contact.email')}</p>
-                      <p className="text-xl md:text-2xl font-bold text-white break-all hover:text-purple-400 transition-colors">
+                      <p className="text-[var(--text-color)]/60 text-sm mb-1 uppercase tracking-widest">{t('page.contact.email')}</p>
+                      <p className="text-xl md:text-2xl font-bold text-[var(--text-color)] break-all hover:text-purple-400 transition-colors">
                         info@aqrablkmedia.com
                       </p>
                     </div>
@@ -210,7 +210,7 @@ const ContactPage = () => {
                   className="glowing-border-box"
                   style={{ '--glow-color': borderColors[2] }}
                 >
-                  <div className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[#080911]/80 backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
+                  <div className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[var(--glass-bg)] backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
                     <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-green-500/20 flex items-center justify-center flex-shrink-0">
                       <svg className="w-7 h-7 md:w-8 md:h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -218,8 +218,8 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className={`flex-grow ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-                      <p className="text-gray-400 text-sm mb-1 uppercase tracking-widest">{t('page.contact.address')}</p>
-                      <p className="text-xl md:text-2xl font-bold text-white">{t('page.contact.address_val')}</p>
+                      <p className="text-[var(--text-color)]/60 text-sm mb-1 uppercase tracking-widest">{t('page.contact.address')}</p>
+                      <p className="text-xl md:text-2xl font-bold text-[var(--text-color)]">{t('page.contact.address_val')}</p>
                     </div>
                   </div>
                 </div>
@@ -231,16 +231,16 @@ const ContactPage = () => {
                   className="glowing-border-box"
                   style={{ '--glow-color': borderColors[3] }}
                 >
-                  <div className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[#080911]/80 backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
+                  <div className={`relative z-10 flex items-center gap-4 md:gap-6 bg-[var(--glass-bg)] backdrop-blur-sm p-6 rounded-[2rem] border border-white/5 hover:bg-white/5 transition-all ${language === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
                     <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
                       <svg className="w-7 h-7 md:w-8 md:h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div className={`flex-grow ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-                      <p className="text-gray-400 text-sm mb-1 uppercase tracking-widest">{t('page.contact.hours')}</p>
-                      <p className="text-xl font-bold text-white">{t('page.contact.hours_days')}</p>
-                      <p className="text-gray-400 text-base">{t('page.contact.hours_val')}</p>
+                      <p className="text-[var(--text-color)]/60 text-sm mb-1 uppercase tracking-widest">{t('page.contact.hours')}</p>
+                      <p className="text-xl font-bold text-[var(--text-color)]">{t('page.contact.hours_days')}</p>
+                      <p className="text-[var(--text-color)]/60 text-base">{t('page.contact.hours_val')}</p>
                     </div>
                   </div>
                 </div>
@@ -251,7 +251,7 @@ const ContactPage = () => {
           {/* Contact Form */}
           <div className={language === 'ar' ? 'text-right' : 'text-left'}>
             <ScrollReveal direction={language === 'ar' ? 'left' : 'right'}>
-              <h2 className="text-3xl md:text-4xl font-black mb-8 md:mb-12 text-white glow-text">
+              <h2 className="text-3xl md:text-4xl font-black mb-8 md:mb-12 text-[var(--text-color)] glow-text">
                 {t('page.contact.form_title')}
               </h2>
             </ScrollReveal>
@@ -272,7 +272,7 @@ const ContactPage = () => {
                   placeholder={t('page.contact.form_name')}
                   value={formData.name}
                   onChange={handleChange}
-                  className={`w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
+                  className={`w-full px-6 py-4 rounded-2xl bg-[var(--glass-bg)] backdrop-blur-sm border border-[var(--border-color)] text-[var(--text-color)] placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
                   required
                 />
               </ScrollReveal>
@@ -285,7 +285,7 @@ const ContactPage = () => {
                     placeholder={t('page.contact.form_email')}
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
+                    className={`w-full px-6 py-4 rounded-2xl bg-[var(--glass-bg)] backdrop-blur-sm border border-[var(--border-color)] text-[var(--text-color)] placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
                     required
                   />
                 </ScrollReveal>
@@ -297,7 +297,7 @@ const ContactPage = () => {
                     placeholder={t('page.contact.form_phone')}
                     value={formData.phone}
                     onChange={handleChange}
-                    className={`w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
+                    className={`w-full px-6 py-4 rounded-2xl bg-[var(--glass-bg)] backdrop-blur-sm border border-[var(--border-color)] text-[var(--text-color)] placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
                     required
                   />
                 </ScrollReveal>
@@ -308,11 +308,11 @@ const ContactPage = () => {
                   name="service"
                   value={formData.service}
                   onChange={handleChange}
-                  className={`w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-blue-500 transition-all appearance-none cursor-pointer ${language === 'ar' ? 'text-right' : 'text-left'}`}
+                  className={`w-full px-6 py-4 rounded-2xl bg-[var(--glass-bg)] backdrop-blur-sm border border-[var(--border-color)] text-[var(--text-color)] focus:outline-none focus:border-blue-500 transition-all appearance-none cursor-pointer ${language === 'ar' ? 'text-right' : 'text-left'}`}
                 >
-                  <option value="" className="bg-[#080911]">{t('page.contact.form_service')}</option>
+                  <option value="" className="bg-[var(--bg-color)]">{t('page.contact.form_service')}</option>
                   {services.map((service, index) => (
-                    <option key={index} value={service} className="bg-[#080911]">{service}</option>
+                    <option key={index} value={service} className="bg-[var(--bg-color)]">{service}</option>
                   ))}
                 </select>
               </ScrollReveal>
@@ -324,7 +324,7 @@ const ContactPage = () => {
                   rows={6}
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all resize-none ${language === 'ar' ? 'text-right' : 'text-left'}`}
+                  className={`w-full px-6 py-4 rounded-2xl bg-[var(--glass-bg)] backdrop-blur-sm border border-[var(--border-color)] text-[var(--text-color)] placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all resize-none ${language === 'ar' ? 'text-right' : 'text-left'}`}
                   required
                 />
               </ScrollReveal>

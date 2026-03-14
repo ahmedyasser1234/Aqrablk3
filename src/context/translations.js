@@ -4,10 +4,15 @@ export const TRANSLATIONS = {
     // Navbar
     'nav.home': 'الرئيسية',
     'nav.services': 'خدماتنا',
+    'nav.blog': 'المدونة',
     'nav.all_services': 'الخدمات',
     'nav.about': 'من نحن',
     'nav.contact': 'تواصل معنا',
     'nav.discover': 'اكتشف خدماتنا',
+    'nav.faq': 'الأسئلة الشائعة',
+    'nav.privacy': 'سياسة الخصوصية',
+    'nav.terms': 'شروط الخدمة',
+
 
     // Hero
     'hero.out_of_box': 'خرجنا من الصندوق بــــ',
@@ -24,14 +29,17 @@ export const TRANSLATIONS = {
     'service.photography.desc': 'اســتــوديــو مجهّــز كأنــك عــلــى متــن مــركبــة تصويـــر؛ إضـــاءة، معـــدات، ومساحـــة جاهــزة لأي فـــكـــرة تــحــب تــطــلقــهـــا فــــي الــسمــاء.',
     'service.design.desc': 'في قسم التصميم نحول الخيال إلى لوحات حية؛ فريقنا من الرسامين والمصممين يصنع عوالم بصرية تبدو وكأنها آتية من خارج الكوكب.',
     'service.web.desc': 'نصــمــم موقــع يخلــى بــراندك محطـــة مضيئــة في الفضــاء الرقمــى ، سهــل الوصـــول ، سـريــع ويـــســتــقبــــل زوارك كــــأنــــــــهم ضـــيــوف VIP',
+
     'service.content.desc': 'محتـــــوى مكتــــوب مخصــــوص لبــــرانـــدك كلمـــــاتهـــا كـــأنهـــا إشـــارت ضوئيــــة توضـــح فكرتـــك تقنــــع عميلــك وتخليـــه يخــتـــارك من بــين كل الكواكب',
     'service.studio.desc' : 'استوديو مجهز كأنك على متن مركبة تصوير , إضاءة , معدات , ومساحة جاهزة لأي فكرة تحب تطلقها فى السماء',
     'service.marketing.desc': 'استـــراتيجيـــات تسويـــق رقميـــة توصــل بــرانـــدك لأقـــرب مـــدار لعميلـــك، بحمــلات مدروســـة تـــرفــــع وعـــــي العلامــــة وتحـــــول الــفضــــولــيــيــن لعمــــلاء دائــمــيــن.',
+    'service.studio.desc': 'استوديو مجهز كأنك على متن مركبة تصوير , إضاءة , معدات , ومساحة جاهزة لأي فكرة تحب تطلقها فى السماء',
 
     
     // Services names for slider & titles
     'service.motion': 'موشـــن جرافيـــك',
     'service.montage': 'مــــــونـــــــتاج',
+
     'service.photography': 'تصويـــر إحترافي',
     'service.design': 'التصميـــم',
     'service.studio': 'تأجيــر إستوديـــو',
@@ -62,7 +70,15 @@ export const TRANSLATIONS = {
 
     // Common Buttons & Labels
     'common.order_now': 'اطلب خدمتك الآن',
+    'common.order_whatsapp': 'اطلب خدمتك من خلال الواتس اب',
     'common.view_work': 'شاهد أعمالنا',
+    'common.write_review': 'اكتب تقييمك',
+    'common.submit_review': 'إرسال التقييم',
+    'common.name_label': 'الاسم',
+    'common.role_label': 'المسمى الوظيفي',
+    'common.review_label': 'رأيك يهمنا',
+    'common.rating_label': 'التقييم',
+    'common.review_success': 'تم إرسال تقييمك بنجاح! سيتم مراجعته قريباً.',
     'common.portfolio': 'معرض أعمالنا',
     'common.work_video': 'فيديو عمل',
     'common.book_session': 'احجز جلستك',
@@ -76,10 +92,10 @@ export const TRANSLATIONS = {
     'page.motion.desc': 'نحول الأفكار المعقدة إلى رسوم متحركة بسيطة وجذابة. موشن جرافيك يطيّر فكرتك في مدار جديد ويخطف أنظار العملاء من الثانية الأولى.',
     'page.motion.gallery_motion': 'معرض الموشن جرافيك',
     'page.motion.gallery_whiteboard': 'معرض الوايت بورد',
-    'page.montage.gallery' : 'كولاج' , 
+    'page.montage.gallery': 'كولاج',
 
     // Page: Montage
-    'page.montage.title': 'مونتـــــــاج',
+    'page.montage.title': 'مونتــــــاج',
     'page.montage.desc': 'المونتاج هو روح الفيديو. نحن نقوم بقص ودمج لقطاتك بأسلوب سينمائي يروي قصة ويبني شعوراً لا ينسى لدى المشاهد.',
     'page.montage.gallery_vertical': 'مونتاج طولي (Reels & TikTok)',
     'page.montage.gallery_horizontal': 'مونتاج عرضي (Cinematic)',
@@ -231,10 +247,14 @@ export const TRANSLATIONS = {
     // Navbar
     'nav.home': 'Home',
     'nav.services': 'Our Services',
+    'nav.blog': 'Blog',
     'nav.all_services': 'Services',
     'nav.about': 'About Us',
     'nav.contact': 'Contact',
     'nav.discover': 'Discover Our Services',
+    'nav.faq': 'FAQ',
+    'nav.privacy': 'Privacy Policy',
+    'nav.terms': 'Terms of Service',
 
     // Hero
     'hero.out_of_box': 'Out of the box with...',
@@ -253,7 +273,8 @@ export const TRANSLATIONS = {
     'service.web.desc': 'We design a website that makes your brand a bright station in digital space—accessible, fast, and welcoming your visitors as VIP guests.',
     'service.content.desc': 'Custom written content for your brand, words like light signals that clarify your idea, convince your client, and make them choose you among all planets.',
     'service.marketing.desc': 'Digital marketing strategies that bring your brand to the closest orbit of your client, with well-studied campaigns that raise brand awareness and turn the curious into permanent clients.',
-     'service.studio.desc' : 'A fully equipped studio that feels like you’re aboard a creative spacecraft — lighting, equipment, and a ready-to-use space for launching any idea you want into the sky.',
+    'service.studio.desc': 'A fully equipped studio that feels like you’re aboard a creative spacecraft — lighting, equipment, and a ready-to-use space for launching any idea you want into the sky.',
+
 
     // Services names
     'service.motion': 'Motion Graphics',
@@ -288,7 +309,15 @@ export const TRANSLATIONS = {
 
     // Common Buttons & Labels
     'common.order_now': 'Order Now',
+    'common.order_whatsapp': 'Order via WhatsApp',
     'common.view_work': 'View Our Work',
+    'common.write_review': 'Write a Review',
+    'common.submit_review': 'Submit Review',
+    'common.name_label': 'Name',
+    'common.role_label': 'Job Title',
+    'common.review_label': 'Your Feedback',
+    'common.rating_label': 'Rating',
+    'common.review_success': 'Review submitted successfully! Pending approval.',
     'common.portfolio': 'Our Portfolio',
     'common.work_video': 'Work Video',
     'common.book_session': 'Book a Session',
@@ -302,7 +331,8 @@ export const TRANSLATIONS = {
     'page.motion.desc': 'We transform complex ideas into simple, attractive animations. Motion graphics fly your idea into a new orbit and capture customer attention from the first second.',
     'page.motion.gallery_motion': 'Motion Graphics Gallery',
     'page.motion.gallery_whiteboard': 'Whiteboard Gallery',
-    'page.montage.gallery' : 'Collage' , 
+    'page.montage.gallery': 'Collage',
+
     // Page: Montage
     'page.montage.title': 'Montage',
     'page.montage.desc': 'Editing is the soul of the video. We cut and merge your footage with a cinematic style that tells a story and builds an unforgettable feeling for the viewer.',

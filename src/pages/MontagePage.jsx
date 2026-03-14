@@ -1,35 +1,41 @@
-import React from 'react';
-import { useLanguage } from '../context/LanguageContext'; // تأكد من المسار الصحيح
+import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import ScrollReveal from '../components/ScrollReveal';
-
-// قائمة فيديوهات المونتاج الطولي (Shorts)
-const verticalMontageVideos = [
-  "6i4Tpocv5C8",
-  "NgwymX-GIqI",
-  "yVrXzR_89a4",
-  "-6iLsXGn8BE",
-  "GuzsLnfPz48",
-  "QFd8La5hBEs",
-  "zbp2E5Ocbpo",
-  "NgwymX-GIqI",
-  "yVrXzR_89a4",
-  "-6iLsXGn8BE",
-  "GuzsLnfPz48",
-  "QFd8La5hBEs",
-  "zbp2E5Ocbpo"
-];
-
-// قائمة فيديوهات المونتاج العرضي
-const horizontalMontageVideos = [
-  "x92XEpVqeo4",
-  "OF2HItDjrFA",
-];
+import ServiceRequestModal from '../components/ServiceRequestModal';
+import { API_BASE_URL } from '../config';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 // مصفوفة الألوان للتنويع (بنفسجي، أزرق، وردي)
 const borderColors = ['#a855f7', '#3b82f6', '#ec4899'];
 
 const MontagePage = () => {
   const { t, language } = useLanguage();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [verticalVideos, setVerticalVideos] = useState([]);
+  const [horizontalVideos, setHorizontalVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch Vertical Montage Videos
+    const p1 = fetch(`${API_BASE_URL}/videos?category=montage_vertical`)
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setVerticalVideos(data.map(v => v.youtubeId));
+      })
+      .catch(err => console.error('Failed to fetch vertical videos', err));
+
+    // Fetch Horizontal Montage Videos
+    const p2 = fetch(`${API_BASE_URL}/videos?category=montage_horizontal`)
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setHorizontalVideos(data.map(v => v.youtubeId));
+      })
+      .catch(err => console.error('Failed to fetch horizontal videos', err));
+
+    Promise.all([p1, p2]).finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <LoadingSpinner fullPage />;
 
   return (
     <div className="pt-24 px-6 md:px-10 pb-20">
@@ -61,14 +67,20 @@ const MontagePage = () => {
               {t('page.montage.desc')}
             </p>
           </ScrollReveal>
-          <ScrollReveal delay={0.4} className="flex gap-4 justify-center lg:justify-start">
+          <ScrollReveal delay={0.4} className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-8 py-3 rounded-full bg-[var(--glass-bg)] border border-purple-500/50 text-purple-400 font-bold hover:bg-[var(--glass-bg)]/80 transition-all hover:shadow-lg hover:shadow-purple-500/30 inline-block text-center flex-1 md:flex-none"
+            >
+              {t('common.order_now')}
+            </button>
             <a
               href="https://wa.me/201099822822"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-full bg-purple-600 text-white font-bold hover:bg-purple-700 transition-all hover:shadow-lg hover:shadow-purple-500/30 inline-block text-center"
+              className="px-8 py-3 rounded-full bg-[var(--glass-bg)] border border-green-500/50 text-green-400 font-bold hover:bg-[var(--glass-bg)]/80 hover:shadow-lg hover:shadow-green-500/20 transition-all inline-block text-center flex-1 md:flex-none"
             >
-              {t('common.order_now')}
+              {t('common.order_whatsapp')}
             </a>
           </ScrollReveal>
         </div>
@@ -91,7 +103,7 @@ const MontagePage = () => {
           </h2>
         </ScrollReveal>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-          {verticalMontageVideos.map((id, index) => (
+          {verticalVideos.map((id, index) => (
             <ScrollReveal key={`vertical-${index}`} delay={index * 0.1}>
               <div
                 className="glowing-border-box vertical aspect-[9/16]"
@@ -123,7 +135,7 @@ const MontagePage = () => {
           </h2>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {horizontalMontageVideos.map((id, index) => (
+          {horizontalVideos.map((id, index) => (
             <ScrollReveal key={`horizontal-${index}`} delay={index * 0.1}>
               <div
                 className="glowing-border-box aspect-video"
@@ -149,6 +161,12 @@ const MontagePage = () => {
       {/* Background Decor */}
       <div className="fixed top-1/2 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse"></div>
       <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse"></div>
+
+      <ServiceRequestModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        serviceName={language === 'ar' ? 'مونتاج' : 'Montage'}
+      />
     </div>
   );
 };

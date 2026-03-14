@@ -1,25 +1,31 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-const ScrollReveal = ({ 
-  children, 
-  delay = 0, 
-  className = '', 
-  style = {}, 
-  direction = 'up' 
+const ScrollReveal = ({
+  children,
+  delay = 0,
+  className = '',
+  style = {},
+  direction = 'up'
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
+    // Fallback: Always show content after 100ms to prevent blank screen issues
+    const timer = setTimeout(() => setIsVisible(true), 100);
+
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setIsVisible(true);
         if (ref.current) observer.unobserve(ref.current);
       }
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    
+    }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' }); // Relaxed margins
+
     if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
   }, []);
 
   const getTransform = () => {
@@ -34,8 +40,8 @@ const ScrollReveal = ({
   };
 
   return (
-    <div 
-      ref={ref} 
+    <div
+      ref={ref}
       className={`${className} transition-all duration-1000 ease-out`}
       style={{
         ...style,

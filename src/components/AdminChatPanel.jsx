@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useLanguage } from '../context/LanguageContext';
-import { SOCKET_URL } from '../config';
+import { SOCKET_URL, API_BASE_URL } from '../config';
 
 const AdminChatPanel = ({ token }) => {
     const { t, language } = useLanguage();
@@ -9,6 +9,7 @@ const AdminChatPanel = ({ token }) => {
     const [selectedVisitorId, setSelectedVisitorId] = useState(null);
     const [messages, setMessages] = useState([]);
     const [reply, setReply] = useState('');
+    const [adminName, setAdminName] = useState('');
     const [isConnected, setIsConnected] = useState(false);
 
     const socketRef = useRef(null);
@@ -37,6 +38,50 @@ const AdminChatPanel = ({ token }) => {
             socketRef.current.on('connect', () => {
                 setIsConnected(true);
             });
+
+            // Get admin name from auth response stored in localStorage if we updated login
+            // Or decode token, or fetch profile. For now, let's try to get it from localStorage if we saved it
+            // We need to make sure we save it in DashboardPage login.
+            // As a fallback, we can default to "مكاوي" or "Admin"
+            // Get admin name from auth response stored in localStorage if we updated login
+            // Get admin name from auth response stored in localStorage
+            const savedUser = localStorage.getItem('auth_user');
+            if (savedUser) {
+                try {
+                    const u = JSON.parse(savedUser);
+                    // STRICTLY prioritize username. 
+                    // Filter out generic names if username is available.
+                    if (u.username) {
+                        setAdminName(u.username);
+                    } else if (u.name && u.name !== 'Support' && u.name !== 'الدعم الفني') {
+                        setAdminName(u.name);
+                    } else {
+                        setAdminName('Admin');
+                    }
+                } catch (e) {
+                    setAdminName('Admin');
+                }
+            } else if (token) {
+                // Fetch if not in localStorage
+                fetch(`${API_BASE_URL}/users/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+                    .then(res => res.json())
+                    .then(u => {
+                        if (u) {
+                            // Update localStorage
+                            localStorage.setItem('auth_user', JSON.stringify(u));
+                            if (u.username) {
+                                setAdminName(u.username);
+                            } else if (u.name && u.name !== 'Support' && u.name !== 'الدعم الفني') {
+                                setAdminName(u.name);
+                            } else {
+                                setAdminName('Admin');
+                            }
+                        }
+                    })
+                    .catch(() => { });
+            }
 
             socketRef.current.on('activeSessions', (data) => {
                 setSessions(Array.isArray(data) ? data : []);
@@ -115,8 +160,32 @@ const AdminChatPanel = ({ token }) => {
         e.preventDefault();
         if (!reply.trim() || !selectedVisitorId || !socketRef.current) return;
 
-        socketRef.current.emit('adminReply', { visitorId: selectedVisitorId, text: reply });
-        const optimisticMsg = { sender: 'admin', text: reply, timestamp: new Date() };
+        // Force read from localStorage to ensure we get the latest, most accurate name
+        // This bypasses any state initialization issues
+        let finalAdminName = adminName;
+        try {
+            const savedUser = localStorage.getItem('auth_user');
+            if (savedUser) {
+                const u = JSON.parse(savedUser);
+                if (u.username) {
+                    finalAdminName = u.username;
+                } else if (u.name && u.name !== 'Support' && u.name !== 'الدعم الفني') {
+                    finalAdminName = u.name;
+                }
+            }
+        } catch (err) {
+            console.error('Error reading auth_user in sendReply:', err);
+        }
+
+        // Final fallback if name is still empty or generic
+        if (!finalAdminName || finalAdminName === 'Support' || finalAdminName === 'الدعم الفني') {
+            finalAdminName = 'Admin';
+        }
+
+        console.log('AdminChatPanel Sending Reply as:', finalAdminName);
+
+        socketRef.current.emit('adminReply', { visitorId: selectedVisitorId, text: reply, adminName: finalAdminName });
+        const optimisticMsg = { sender: 'admin', text: reply, adminName: finalAdminName, timestamp: new Date() };
         setMessages(prev => [...prev, optimisticMsg]);
         setReply('');
     };
@@ -132,12 +201,12 @@ const AdminChatPanel = ({ token }) => {
     const selectedSession = sessions.find(s => s.id === selectedVisitorId);
 
     return (
-        <div className={`bg-white/5 border border-white/10 rounded-[2.5rem] p-4 md:p-6 backdrop-blur-2xl mt-12 min-h-[500px] h-[75vh] lg:h-[650px] flex overflow-hidden shadow-2xl relative ${language === 'ar' ? 'flex-row' : 'flex-row-reverse'} gap-0 lg:gap-10`}>
+        <div className={`bg-[var(--glass-bg)] border border-white/10 rounded-[2.5rem] p-4 md:p-6 backdrop-blur-2xl mt-12 min-h-[500px] h-[75vh] lg:h-[650px] flex overflow-hidden shadow-2xl relative ${language === 'ar' ? 'flex-row' : 'flex-row-reverse'} gap-0 lg:gap-10`}>
 
             {/* Sidebar / Inbox List */}
             <div className={`w-full lg:w-1/3 border-b lg:border-r lg:border-b-0 border-white/10 lg:pr-4 overflow-y-auto custom-scrollbar transition-all duration-300 ${selectedVisitorId ? 'hidden lg:block' : 'block animate-in slide-in-from-left-4'}`}>
-                <div className="flex justify-between items-center mb-6 px-2 sticky top-0 bg-[#0d0e1b]/80 backdrop-blur-md py-2 z-10">
-                    <h2 className={`text-xl lg:text-2xl font-black text-white flex items-center gap-3 ${language === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                <div className="flex justify-between items-center mb-6 px-2 sticky top-0 bg-transparent py-2 z-10">
+                    <h2 className={`text-xl lg:text-2xl font-black text-[var(--text-color)] flex items-center gap-3 ${language === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
                         <span className="w-2.5 h-2.5 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]"></span>
                         {t('chat.inbox')}
                     </h2>
@@ -152,7 +221,7 @@ const AdminChatPanel = ({ token }) => {
                         >
                             <div className="flex justify-between items-start">
                                 <div className="flex-1">
-                                    <h4 className="font-bold text-sm text-white">{session.name || t('chat.visitor')}</h4>
+                                    <h4 className="font-bold text-sm text-[var(--text-color)]">{session.name || t('chat.visitor')}</h4>
                                     <p className={`text-[9px] uppercase font-mono ${selectedVisitorId === session.id ? 'text-blue-100' : 'text-gray-500'}`}>ID: {session.id?.slice(-6) || 'N/A'}</p>
                                 </div>
                                 {session.unread > 0 && selectedVisitorId !== session.id && (
@@ -170,7 +239,7 @@ const AdminChatPanel = ({ token }) => {
             </div>
 
             {/* Chat Area */}
-            <div className={`flex-1 flex flex-col h-full bg-white/5 border border-white/10 rounded-3xl lg:rounded-[2.5rem] overflow-hidden ${!selectedVisitorId ? 'hidden lg:flex items-center justify-center opacity-40' : 'flex animate-in slide-in-from-right-4'}`}>
+            <div className={`flex-1 flex flex-col h-full bg-[var(--glass-bg)] border border-white/10 rounded-3xl lg:rounded-[2.5rem] overflow-hidden ${!selectedVisitorId ? 'hidden lg:flex items-center justify-center opacity-40' : 'flex animate-in slide-in-from-right-4'}`}>
                 {selectedSession ? (
                     <>
                         <div className="p-3 md:p-5 border-b border-white/10 flex flex-wrap gap-2 justify-between items-center bg-white/5">
@@ -182,7 +251,7 @@ const AdminChatPanel = ({ token }) => {
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7"></path></svg>
                                     <span className="text-xs font-bold">{language === 'ar' ? 'رجوع' : 'Back'}</span>
                                 </button>
-                                <h3 className="font-black text-sm md:text-xl text-white truncate max-w-[100px] md:max-w-none">{selectedSession.name || t('chat.visitor')}</h3>
+                                <h3 className="font-black text-sm md:text-xl text-[var(--text-color)] truncate max-w-[100px] md:max-w-none">{selectedSession.name || t('chat.visitor')}</h3>
                             </div>
                             <button
                                 onClick={clearChat}
@@ -196,8 +265,8 @@ const AdminChatPanel = ({ token }) => {
                         <div ref={containerRef} className="flex-1 overflow-y-auto space-y-4 custom-scrollbar p-6 bg-gradient-to-b from-black/20 to-transparent">
                             {messages.map((msg, idx) => (
                                 <div key={idx} className={`flex ${msg.sender === 'admin' ? 'justify-end' : 'justify-start'}`}>
-                                    <div className={`max-w-[90%] lg:max-w-[70%] p-3 px-5 rounded-2xl text-sm leading-relaxed ${msg.sender === 'admin' ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-white/10 text-gray-200 rounded-tl-none border border-white/5'}`}>
-                                        <div className="mb-1 text-[9px] opacity-40 font-black uppercase tracking-widest">{msg.sender === 'bot' ? 'Assistant' : (msg.sender === 'admin' ? t('chat.support') : t('chat.visitor'))}</div>
+                                    <div className={`max-w-[90%] lg:max-w-[70%] p-3 px-5 rounded-2xl text-sm leading-relaxed ${msg.sender === 'admin' ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-[var(--glass-bg)] text-[var(--text-color)] rounded-tl-none border border-white/5'}`}>
+                                        <div className="mb-1 text-[9px] opacity-40 font-black uppercase tracking-widest">{msg.sender === 'bot' ? 'Assistant' : (msg.sender === 'admin' ? (msg.adminName || t('chat.support')) : t('chat.visitor'))}</div>
                                         {msg.text}
                                     </div>
                                 </div>
@@ -209,7 +278,7 @@ const AdminChatPanel = ({ token }) => {
                                 type="text"
                                 value={reply}
                                 onChange={e => setReply(e.target.value)}
-                                className="flex-1 bg-black/40 border border-white/10 rounded-xl md:rounded-2xl p-3 md:p-4 text-white text-sm md:text-base placeholder:text-gray-600 outline-none focus:border-blue-500 min-w-0"
+                                className="flex-1 bg-[var(--glass-bg)] border border-white/10 rounded-xl md:rounded-2xl p-3 md:p-4 text-[var(--text-color)] text-sm md:text-base placeholder:text-gray-500 outline-none focus:border-blue-500 min-w-0"
                                 placeholder={t('chat.typing')}
                             />
                             <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-8 rounded-xl md:rounded-2xl transition-all active:scale-95 shadow-lg flex-shrink-0 flex items-center justify-center">

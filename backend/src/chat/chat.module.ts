@@ -6,5 +6,6 @@ import { ChatMessage } from './chat_message.entity';
 @Module({
     imports: [TypeOrmModule.forFeature([ChatMessage])],
     providers: [ChatGateway],
+    exports: [ChatGateway],
 })
 export class ChatModule { }

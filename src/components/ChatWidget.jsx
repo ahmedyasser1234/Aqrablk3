@@ -2,20 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useLanguage } from '../context/LanguageContext';
 import { useLocation } from 'react-router-dom';
-import { SOCKET_URL } from '../config';
+import { SOCKET_URL, API_BASE_URL } from '../config';
 
 const ChatWidget = () => {
     const { t, language } = useLanguage();
     const location = useLocation();
 
-    // Hide if on Admin Messages dashboard (to prevent overlap)
-    if (location.pathname.includes('/dashboard/messages')) return null;
+
     const [isOpen, setIsOpen] = useState(false);
     const [isConnected, setIsConnected] = useState(false);
     const [isAdminOnline, setIsAdminOnline] = useState(false);
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [hasUnread, setHasUnread] = useState(false);
+    const [chatbotConfig, setChatbotConfig] = useState(null);
 
     // Admin specific states
     const [isAdmin, setIsAdmin] = useState(false);
@@ -25,11 +25,34 @@ const ChatWidget = () => {
     const socketRef = useRef(null);
     const containerRef = useRef(null);
 
-    // Detect if current user is admin
+    // Detect if current user is admin and fetch details if missing
     useEffect(() => {
         const token = localStorage.getItem('auth_token');
         setIsAdmin(!!token);
+
+        // If admin but no user details, fetch them
+        if (token && !localStorage.getItem('auth_user')) {
+            fetch(`${API_BASE_URL}/users/me`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+                .then(res => res.json())
+                .then(user => {
+                    if (user && user.username) {
+                        localStorage.setItem('auth_user', JSON.stringify(user));
+                        console.log('User details fetched and saved:', user.username);
+                    }
+                })
+                .catch(err => console.error('Failed to fetch user details:', err));
+        }
     }, [isOpen]); // Re-check when opening
+
+    // Fetch chatbot configuration
+    useEffect(() => {
+        fetch(`${API_BASE_URL}/chatbot-config`)
+            .then(res => res.json())
+            .then(config => setChatbotConfig(config))
+            .catch(err => console.error('Failed to fetch chatbot config:', err));
+    }, []);
 
     const [visitorId] = useState(() => {
         let id = localStorage.getItem('chat_visitor_id');
@@ -74,6 +97,16 @@ const ChatWidget = () => {
                 setIsConnected(true);
                 if (!token) {
                     socketRef.current.emit('joinChat', { name: 'Visitor', visitorId });
+
+                    // Send welcome message
+                    if (chatbotConfig && messages.length === 0) {
+                        const welcomeMsg = {
+                            sender: 'bot',
+                            text: language === 'ar' ? chatbotConfig.welcomeMessage : chatbotConfig.welcomeMessageEn,
+                            timestamp: new Date()
+                        };
+                        setMessages([welcomeMsg]);
+                    }
                 }
             });
 
@@ -134,11 +167,73 @@ const ChatWidget = () => {
 
         if (isAdmin) {
             if (!selectedVisitorId) return;
-            socketRef.current.emit('adminReply', { visitorId: selectedVisitorId, text: input });
-            const optimisticMsg = { sender: 'admin', text: input, timestamp: new Date() };
+
+            // Retrieve admin name from localStorage
+            const authUserStr = localStorage.getItem('auth_user');
+            let adminName = 'Admin';
+
+            if (authUserStr) {
+                try {
+                    const authUser = JSON.parse(authUserStr);
+                    if (authUser.username) {
+                        adminName = authUser.username;
+                    } else if (authUser.name && authUser.name !== 'Support' && authUser.name !== 'الدعم الفني') {
+                        adminName = authUser.name;
+                    }
+                } catch (err) {
+                    console.error('Error parsing auth_user:', err);
+                }
+            }
+
+            socketRef.current.emit('adminReply', { visitorId: selectedVisitorId, text: input, adminName });
+
+            const optimisticMsg = { sender: 'admin', text: input, timestamp: new Date(), adminName };
             setMessages(prev => [...prev, optimisticMsg]);
         } else {
             socketRef.current.emit('sendMessage', { text: input, visitorId });
+
+            // AI Logic: if admin is offline, check for keyword responses first, then chatbot
+            if (!isAdminOnline) {
+                setTimeout(async () => {
+                    try {
+                        // First, try to find keyword-based response
+                        const keywordRes = await fetch(`${API_BASE_URL}/chatbot-config/find-response`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ message: input })
+                        });
+
+                        if (keywordRes.ok) {
+                            const keywordData = await keywordRes.json();
+                            if (keywordData.response) {
+                                const botMsg = {
+                                    sender: 'bot',
+                                    text: keywordData.response,
+                                    timestamp: new Date()
+                                };
+                                setMessages(prev => [...prev, botMsg]);
+                                return;
+                            }
+                        }
+
+                        // If no keyword match, fallback to AI chatbot
+                        const res = await fetch(`${API_BASE_URL}/chatbot/ask?q=${encodeURIComponent(input)}&lang=${language}`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data.response) {
+                                const botMsg = {
+                                    sender: 'bot',
+                                    text: data.response,
+                                    timestamp: new Date()
+                                };
+                                setMessages(prev => [...prev, botMsg]);
+                            }
+                        }
+                    } catch (err) {
+                        console.error('AI Bot Error:', err);
+                    }
+                }, 1000);
+            }
         }
         setInput('');
     };
@@ -148,10 +243,13 @@ const ChatWidget = () => {
         if (!isOpen) setHasUnread(false);
     };
 
+    // Hide if on Admin Messages dashboard (to prevent overlap)
+    if (location.pathname.includes('/dashboard/messages')) return null;
+
     return (
         <div className={`fixed bottom-6 ${language === 'ar' ? 'left-6' : 'right-6'} z-[9999] flex flex-col items-end`}>
             {isOpen && (
-                <div className="bg-[#15182b] border border-white/10 rounded-2xl w-80 md:w-96 h-[500px] mb-4 flex flex-col shadow-2xl overflow-hidden backdrop-blur-3xl animate-in slide-in-from-bottom-4 duration-300">
+                <div className="bg-[var(--nav-bg)] border border-[var(--border-color)] rounded-2xl w-80 md:w-96 h-[500px] mb-4 flex flex-col shadow-2xl overflow-hidden backdrop-blur-3xl animate-in slide-in-from-bottom-4 duration-300">
 
                     {/* Header */}
                     <div className="bg-blue-600 p-4 flex items-center relative overflow-hidden h-20 shadow-lg">
@@ -183,7 +281,7 @@ const ChatWidget = () => {
                     </div>
 
                     {/* Content */}
-                    <div ref={containerRef} className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar bg-black/20">
+                    <div ref={containerRef} className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar bg-black/5 text-[var(--text-color)]">
                         {isAdmin && !selectedVisitorId ? (
                             // Admin Inbox View
                             <div className="space-y-2">
@@ -197,7 +295,7 @@ const ChatWidget = () => {
                                             className="p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 cursor-pointer transition-all flex justify-between items-center"
                                         >
                                             <div>
-                                                <h4 className="text-sm font-bold text-white">{s.name || t('chat.visitor')}</h4>
+                                                <h4 className="text-sm font-bold text-[var(--text-color)]">{s.name || t('chat.visitor')}</h4>
                                                 <p className="text-[10px] text-gray-500 font-mono">ID: {s.id.slice(-6)}</p>
                                             </div>
                                             {s.unread > 0 && (
@@ -215,10 +313,10 @@ const ChatWidget = () => {
                                     <div key={idx} className={`flex ${(isAdmin ? msg.sender === 'admin' : msg.sender === 'user') ? 'justify-end' : 'justify-start'}`}>
                                         <div className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${(isAdmin ? msg.sender === 'admin' : msg.sender === 'user')
                                             ? 'bg-blue-600 text-white rounded-tr-none'
-                                            : 'bg-white/10 text-gray-200 rounded-tl-none border border-white/5 backdrop-blur-sm'
+                                            : 'bg-[var(--card-bg)] text-[var(--text-color)] rounded-tl-none border border-[var(--border-color)] backdrop-blur-sm'
                                             }`}>
                                             <div className="text-[8px] opacity-40 mb-1 font-black uppercase">
-                                                {msg.sender === 'admin' ? t('chat.support') : (msg.sender === 'bot' ? 'Assistant' : t('chat.visitor'))}
+                                                {msg.sender === 'admin' ? (msg.adminName || t('chat.support')) : (msg.sender === 'bot' ? 'Assistant' : t('chat.visitor'))}
                                             </div>
                                             {msg.text}
                                         </div>
@@ -230,13 +328,13 @@ const ChatWidget = () => {
 
                     {/* Input (only shown in chat view) */}
                     {(!isAdmin || selectedVisitorId) && (
-                        <form onSubmit={sendMessage} className="p-4 border-t border-white/5 flex gap-2 bg-[#15182b]">
+                        <form onSubmit={sendMessage} className="p-4 border-t border-[var(--border-color)] flex gap-2 bg-[var(--nav-bg)]">
                             <input
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 placeholder={isAdmin ? t('chat.typing') : t('chat.placeholder')}
-                                className="flex-1 bg-black/40 border border-white/10 rounded-xl p-3 text-white text-sm outline-none focus:border-blue-500 transition-all placeholder:text-gray-600"
+                                className="flex-1 bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl p-3 text-[var(--text-color)] text-sm outline-none focus:border-blue-500 transition-all placeholder:text-gray-600"
                             />
                             <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-xl transition-all shadow-lg active:scale-95">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.493-7.493Z" /></svg>

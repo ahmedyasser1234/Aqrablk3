@@ -12,16 +12,17 @@ export class VisitService {
     ) { }
 
     async track(ip: string, page: string) {
-        const geo = geoip.lookup(ip);
+        // Normalize IP
+        const cleanIp = ip.replace('::ffff:', '');
+        const isLocal = cleanIp === '::1' || cleanIp === '127.0.0.1';
 
-        // Normalize IP for localhost
-        const cleanIp = ip === '::1' || ip === '127.0.0.1' ? '127.0.0.1' : ip;
+        const geo = geoip.lookup(cleanIp);
 
         let country = geo?.country;
         let city = geo?.city;
 
         // Simulate location for Localhost (Dev Mode)
-        if (cleanIp === '127.0.0.1') {
+        if (isLocal) {
             country = 'EG'; // Egypt
             city = 'Cairo';
         }
@@ -55,6 +56,15 @@ export class VisitService {
             .orderBy('count', 'DESC')
             .getRawMany();
 
-        return { total, pages, countries };
+        const daily = await this.visitRepository
+            .createQueryBuilder('visit')
+            .select("strftime('%Y-%m-%d', visit.timestamp)", 'date')
+            .addSelect('COUNT(visit.id)', 'count')
+            .where("visit.timestamp > date('now', '-7 days')")
+            .groupBy('date')
+            .orderBy('date', 'ASC')
+            .getRawMany();
+
+        return { total, pages, countries, daily };
     }
 }

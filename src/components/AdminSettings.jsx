@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { API_BASE_URL } from '../config';
 
-const AdminSettings = ({ token }) => {
+const AdminSettings = ({ token, role }) => {
     const { t, language } = useLanguage();
 
     // Password Change State
@@ -102,52 +102,54 @@ const AdminSettings = ({ token }) => {
             </div>
 
             {/* Add New Admin Section */}
-            <div className="bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-12 backdrop-blur-3xl">
-                <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-2xl bg-green-600/20 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
-                    </div>
-                    {language === 'ar' ? 'إضافة أدمن جديد' : 'Add New Admin'}
-                </h2>
+            {role === 'superadmin' && (
+                <div className="bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-12 backdrop-blur-3xl">
+                    <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-2xl bg-green-600/20 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
+                        </div>
+                        {language === 'ar' ? 'إضافة أدمن جديد' : 'Add New Admin'}
+                    </h2>
 
-                <form onSubmit={handleCreateAdmin} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-500 uppercase tracking-widest px-2">{language === 'ar' ? 'اسم المستخدم' : 'Username'}</label>
-                        <input
-                            type="text"
-                            value={newAdmin.username}
-                            onChange={e => setNewAdmin({ ...newAdmin, username: e.target.value })}
-                            className="w-full bg-black/40 border border-white/10 rounded-2xl p-4 outline-none focus:border-green-500 transition-all text-white"
-                            placeholder="admin_name"
-                            required
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-500 uppercase tracking-widest px-2">{language === 'ar' ? 'كلمة السر' : 'Password'}</label>
-                        <input
-                            type="password"
-                            value={newAdmin.password}
-                            onChange={e => setNewAdmin({ ...newAdmin, password: e.target.value })}
-                            className="w-full bg-black/40 border border-white/10 rounded-2xl p-4 outline-none focus:border-green-500 transition-all text-white"
-                            placeholder="••••••••"
-                            required
-                        />
-                    </div>
+                    <form onSubmit={handleCreateAdmin} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <label className="text-xs font-black text-gray-500 uppercase tracking-widest px-2">{language === 'ar' ? 'اسم المستخدم' : 'Username'}</label>
+                            <input
+                                type="text"
+                                value={newAdmin.username}
+                                onChange={e => setNewAdmin({ ...newAdmin, username: e.target.value })}
+                                className="w-full bg-black/40 border border-white/10 rounded-2xl p-4 outline-none focus:border-green-500 transition-all text-white"
+                                placeholder="admin_name"
+                                required
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-xs font-black text-gray-500 uppercase tracking-widest px-2">{language === 'ar' ? 'كلمة السر' : 'Password'}</label>
+                            <input
+                                type="password"
+                                value={newAdmin.password}
+                                onChange={e => setNewAdmin({ ...newAdmin, password: e.target.value })}
+                                className="w-full bg-black/40 border border-white/10 rounded-2xl p-4 outline-none focus:border-green-500 transition-all text-white"
+                                placeholder="••••••••"
+                                required
+                            />
+                        </div>
 
-                    <div className="md:col-span-2">
-                        {adminStatus.msg && (
-                            <p className={`text-sm font-bold text-center mb-4 ${adminStatus.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>{adminStatus.msg}</p>
-                        )}
-                        <button
-                            type="submit"
-                            disabled={isCreatingAdmin}
-                            className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-black py-4 rounded-2xl transition-all shadow-lg active:scale-[0.98]"
-                        >
-                            {isCreatingAdmin ? '...' : (language === 'ar' ? 'إنشاء حساب أدمن' : 'Create Admin Account')}
-                        </button>
-                    </div>
-                </form>
-            </div>
+                        <div className="md:col-span-2">
+                            {adminStatus.msg && (
+                                <p className={`text-sm font-bold text-center mb-4 ${adminStatus.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>{adminStatus.msg}</p>
+                            )}
+                            <button
+                                type="submit"
+                                disabled={isCreatingAdmin}
+                                className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-black py-4 rounded-2xl transition-all shadow-lg active:scale-[0.98]"
+                            >
+                                {isCreatingAdmin ? '...' : (language === 'ar' ? 'إنشاء حساب أدمن' : 'Create Admin Account')}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
 
         </div>
     );

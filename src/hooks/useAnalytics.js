@@ -21,7 +21,7 @@ export const useAnalytics = () => {
                 return;
             }
 
-            // Don't track dashboard pages
+            // Don't track dashboard pages or 404s (if identifiable, usually 404s might just be 'undefined' path depending on router, but stick to ignoring dashboard for now)
             if (currentPath.includes('/dashboard')) return;
 
             // Update trackers immediately to block concurrent calls

@@ -125,11 +125,16 @@ export class ChatGateway
     }
 
     @SubscribeMessage('adminReply')
-    async handleAdminReply(client: Socket, payload: { visitorId: string; text: string }) {
-        const { visitorId, text } = payload;
+    async handleAdminReply(client: Socket, payload: { visitorId: string; text: string; adminName?: string }) {
+        const { visitorId, text, adminName } = payload;
+
+        this.logger.log(`Admin Reply Payload: ${JSON.stringify(payload)}`); // Debugging
+
+        const finalAdminName = adminName || 'Admin'; // Fallback if frontend sends nothing
+
         const session = this.sessions.get(visitorId);
 
-        const msg = await this.saveMessage(visitorId, 'admin', text);
+        const msg = await this.saveMessage(visitorId, 'admin', text, finalAdminName);
 
         if (session) {
             session.unread = 0;
@@ -177,8 +182,8 @@ export class ChatGateway
         this.broadcastSessions();
     }
 
-    private async saveMessage(visitorId: string, sender: string, text: string) {
-        const message = this.messageRepository.create({ visitorId, sender, text });
+    private async saveMessage(visitorId: string, sender: string, text: string, adminName?: string) {
+        const message = this.messageRepository.create({ visitorId, sender, text, adminName });
         return this.messageRepository.save(message);
     }
 

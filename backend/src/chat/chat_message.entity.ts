@@ -14,6 +14,10 @@ export class ChatMessage {
     @Column('text')
     text: string;
 
+    @Column({ nullable: true })
+    adminName: string;
+
+
     @CreateDateColumn()
     timestamp: Date;
 }

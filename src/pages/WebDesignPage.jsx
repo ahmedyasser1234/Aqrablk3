@@ -1,24 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ScrollReveal from '../components/ScrollReveal';
+import ServiceRequestModal from '../components/ServiceRequestModal';
+import { API_BASE_URL } from '../config';
+import LoadingSpinner from '../components/LoadingSpinner';
 
-const webProjects = [
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769281547/mock_3_bn86ur.png", url: "https://architectegypt.com" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769722475/mock5_h5bsot.png", url: "https://centersanad.netlify.app" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769281553/mock_2_fudft9.png", url: "https://shelterhouseofcheese.com" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769282159/mock_sharik_zptlfz.png", url: "https://sharke1.netlify.app" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769278001/galaxy_mockup_tcy5oy.png", url: "https://galaxyrepairuae.com" }
-];
-
-const shopifyProjects = [
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769535124/dhai_store_zuixcg.png", url: "https://dhai-store.com/" },
-  { image: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769535128/shopy_2_dbgoiv.png", url: "https://fluffpuff.store/" },
-];
 
 const borderColors = ['#a855f7', '#6366f1', '#a855f7'];
 
 const WebDesignPage = () => {
   const { t, language } = useLanguage();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [webProjects, setWebProjects] = useState([]);
+  const [shopifyProjects, setShopifyProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        const [webRes, shopifyRes] = await Promise.all([
+          fetch(`${API_BASE_URL}/videos?category=web_portfolio`),
+          fetch(`${API_BASE_URL}/videos?category=shopify_portfolio`)
+        ]);
+
+        const webData = await webRes.json();
+        const shopifyData = await shopifyRes.json();
+
+        if (Array.isArray(webData)) setWebProjects(webData);
+        if (Array.isArray(shopifyData)) setShopifyProjects(shopifyData);
+      } catch (err) {
+        console.error('Failed to fetch web portfolio', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPortfolio();
+  }, []);
+
+  if (isLoading) return <LoadingSpinner fullPage />;
 
   return (
     <div className="pt-24 px-6 md:px-10 pb-20 overflow-hidden">
@@ -52,14 +71,20 @@ const WebDesignPage = () => {
               {t('page.web.desc')}
             </p>
           </ScrollReveal>
-          <ScrollReveal delay={0.4} className="flex gap-4 justify-center lg:justify-start">
+          <ScrollReveal delay={0.4} className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-8 md:px-10 py-3 md:py-4 rounded-full bg-[var(--glass-bg)] border border-purple-500/50 text-purple-400 font-bold hover:bg-[var(--glass-bg)]/80 transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)] inline-block text-center flex-1 md:flex-none"
+            >
+              {t('common.order_now')}
+            </button>
             <a
               href="https://wa.me/201099822822"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 md:px-10 py-3 md:py-4 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-bold transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)] inline-block text-center"
+              className="px-8 md:px-10 py-3 md:py-4 rounded-full bg-[var(--glass-bg)] border border-green-500/50 text-green-400 font-bold hover:bg-[var(--glass-bg)]/80 hover:shadow-lg hover:shadow-green-500/20 transition-all inline-block text-center flex-1 md:flex-none"
             >
-              {t('common.start_project')}
+              {t('common.order_whatsapp')}
             </a>
           </ScrollReveal>
         </div>
@@ -91,7 +116,7 @@ const WebDesignPage = () => {
                 className="glowing-border-box h-full"
                 style={{ '--glow-color': borderColors[index] }}
               >
-                <div className="relative z-10 h-full p-8 md:p-10 rounded-[2rem] bg-[#080911]/90 backdrop-blur-sm flex flex-col justify-center text-center lg:text-start">
+                <div className="relative z-10 h-full p-8 md:p-10 rounded-[2rem] bg-[var(--glass-bg)] backdrop-blur-sm flex flex-col justify-center text-center lg:text-start">
                   <h3 className="text-2xl font-bold mb-4 text-purple-400">
                     {t(`page.web.feat${i}_title`)}
                   </h3>
@@ -112,32 +137,37 @@ const WebDesignPage = () => {
             {t('common.portfolio')}
           </h2>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {webProjects.map((project, index) => (
-            <ScrollReveal key={index} delay={index * 0.1}>
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glowing-border-box block aspect-video group"
-                style={{ '--glow-color': borderColors[index % borderColors.length] }}
-              >
-                <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
-                  <img
-                    src={project.image}
-                    alt={`Project ${index + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white font-bold text-lg px-6 py-2 border border-white/50 rounded-full backdrop-blur-md">
-                      {t('common.view_work')}
-                    </span>
+        {isLoading ? (
+          <div className="text-center py-20 text-purple-400/50 animate-pulse font-bold">Loading Web Projects...</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {webProjects.length === 0 && <p className="col-span-full text-center text-gray-500">No web projects available yet.</p>}
+            {webProjects.map((project, index) => (
+              <ScrollReveal key={project.id} delay={index * 0.1}>
+                <a
+                  href={project.externalLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glowing-border-box block aspect-video group"
+                  style={{ '--glow-color': borderColors[index % borderColors.length] }}
+                >
+                  <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
+                    <img
+                      src={project.youtubeId.startsWith('/uploads') ? `${API_BASE_URL}${project.youtubeId}` : project.youtubeId}
+                      alt={`Project ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="text-white font-bold text-lg px-6 py-2 border border-white/50 rounded-full backdrop-blur-md">
+                        {t('common.view_work')}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </ScrollReveal>
-          ))}
-        </div>
+                </a>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* قسم أعمال شوبيفاي */}
@@ -147,36 +177,47 @@ const WebDesignPage = () => {
             {t('page.web.shopify_portfolio')}
           </h2>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {shopifyProjects.map((project, index) => (
-            <ScrollReveal key={`shopify-${index}`} delay={index * 0.1}>
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glowing-border-box block aspect-video group"
-                style={{ '--glow-color': borderColors[(index + 1) % borderColors.length] }}
-              >
-                <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
-                  <img
-                    src={project.image}
-                    alt={`Shopify Project ${index + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white font-bold text-lg px-6 py-2 border border-white/50 rounded-full backdrop-blur-md">
-                      {t('common.view_work')}
-                    </span>
+        {isLoading ? (
+          <div className="text-center py-20 text-blue-400/50 animate-pulse font-bold">Loading Shopify Stores...</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {shopifyProjects.length === 0 && <p className="col-span-full text-center text-gray-500">No shopify stores available yet.</p>}
+            {shopifyProjects.map((project, index) => (
+              <ScrollReveal key={`shopify-${project.id}`} delay={index * 0.1}>
+                <a
+                  href={project.externalLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glowing-border-box block aspect-video group"
+                  style={{ '--glow-color': borderColors[(index + 1) % borderColors.length] }}
+                >
+                  <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
+                    <img
+                      src={project.youtubeId.startsWith('/uploads') ? `${API_BASE_URL}${project.youtubeId}` : project.youtubeId}
+                      alt={`Shopify Project ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="text-white font-bold text-lg px-6 py-2 border border-white/50 rounded-full backdrop-blur-md">
+                        {t('common.view_work')}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </ScrollReveal>
-          ))}
-        </div>
+                </a>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* زينة الخلفية */}
       <div className="fixed top-1/2 left-0 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse"></div>
+
+      <ServiceRequestModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        serviceName={language === 'ar' ? 'تصميم مواقع' : 'Web Design'}
+      />
     </div>
   );
 };

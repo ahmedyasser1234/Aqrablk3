@@ -32,6 +32,7 @@ const ServicesPage = () => {
   const [playingVideo, setPlayingVideo] = useState(null);
   const [playingMontage, setPlayingMontage] = useState(null);
 
+
   const videoTimerRef = useRef(null);
   const montageTimerRef = useRef(null);
   const webTimerRef = useRef(null);
@@ -111,7 +112,7 @@ const ServicesPage = () => {
   }, [playingVideo, playingMontage, startAllTimers]);
 
   return (
-    <div className="relative pt-10 overflow-x-hidden w-full">
+    <div className="relative pt-10 overflow-x-hidden w-full bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300">
       {/* Header Section */}
       <section className="relative h-[60vh] md:h-[80vh] flex flex-col items-center justify-center text-center px-10 pb-10 md:pb-20 overflow-hidden">
         <ScrollReveal className="absolute top-[33%] left-[45%] -translate-x-1/2 -translate-y-1/2 mt-5 md:mt-0 w-20 h-20 md:w-[12rem] md:h-[12rem] pointer-events-none z-20">
@@ -142,10 +143,10 @@ const ServicesPage = () => {
           </div>
           <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-start order-2">
             <ScrollReveal direction={language === 'ar' ? 'left' : 'right'}>
-              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-mr-40' : 'lg:-ml-40'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.motion')}</h2>
+              <h2 className={`text-3xl md:text-7xl text-[var(--text-color)] glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-mr-40' : 'lg:-ml-40'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.motion')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'left' : 'right'}>
-              <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.motion.desc')}</p>
+              <p className={`text-[var(--text-color)]/70 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.motion.desc')}</p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2} className="w-full relative h-[250px] md:h-[350px] flex items-center justify-center [perspective:1200px]">
@@ -171,7 +172,7 @@ const ServicesPage = () => {
             </ScrollReveal>
 
             <ScrollReveal delay={0.3}>
-              <button onClick={() => navigate(p('/services/motion-graphics'))} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/motion-graphics'))} className="mt-8 px-12 py-3 rounded-full bg-[var(--glass-bg)] border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-[var(--glass-bg)]/80 transition-all font-bold">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
@@ -187,10 +188,10 @@ const ServicesPage = () => {
           </div>
           <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-end text-center lg:text-end order-2 lg:order-1">
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
-              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[220px]' : 'lg:translate-x-[220px]'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.montage')}</h2>
+              <h2 className={`text-3xl md:text-7xl text-[var(--text-color)] glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[220px]' : 'lg:translate-x-[220px]'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.montage')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
-              <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.montage.desc')}</p>
+              <p className={`text-[var(--text-color)]/70 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.montage.desc')}</p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2} className="w-full relative h-[250px] md:h-[350px] flex items-center justify-center [perspective:1200px]">
@@ -216,7 +217,7 @@ const ServicesPage = () => {
             </ScrollReveal>
 
             <ScrollReveal delay={0.3} className="w-full flex justify-center lg:justify-end">
-              <button onClick={() => navigate(p('/services/montage'))} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/montage'))} className="mt-8 px-12 py-3 rounded-full bg-[var(--glass-bg)] border border-white/10 hover:bg-[var(--glass-bg)]/80 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
@@ -232,13 +233,13 @@ const ServicesPage = () => {
           </div>
           <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-start order-2">
             <ScrollReveal direction={language === 'ar' ? 'left' : 'right'}>
-              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-mr-40' : 'lg:-ml-40'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.photography')}</h2>
+              <h2 className={`text-3xl md:text-7xl text-[var(--text-color)] glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-mr-40' : 'lg:-ml-40'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.photography')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'left' : 'right'}>
-              <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.photography.desc')}</p>
+              <p className={`text-[var(--text-color)]/70 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.photography.desc')}</p>
             </ScrollReveal>
             <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-start lg:pe-20">
-              <button onClick={() => navigate(p('/services/photography'))} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/photography'))} className="px-12 py-3 rounded-full bg-[var(--glass-bg)] border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-[var(--glass-bg)]/80 transition-all font-bold">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
@@ -256,19 +257,19 @@ const ServicesPage = () => {
 
           <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-end text-center lg:text-end order-2 lg:order-1">
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
-              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[150px]' : 'lg:translate-x-[260px]'} z-0 pointer-events-none whitespace-nowrap`}>
+              <h2 className={`text-3xl md:text-7xl text-[var(--text-color)] glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[150px]' : 'lg:translate-x-[260px]'} z-0 pointer-events-none whitespace-nowrap`}>
                 {t('service.design')}
               </h2>
             </ScrollReveal>
 
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
-              <p className={`text-gray-300 text-base md:text-xl max-w-[360px] leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[100px]' : 'lg:translate-x-[5px]'}`}>
+              <p className={`text-[var(--text-color)]/70 text-base md:text-xl max-w-[360px] leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[100px]' : 'lg:translate-x-[5px]'}`}>
                 {t('service.design.desc')}
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-end">
-              <button onClick={() => navigate(p('/services/design'))} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">
+              <button onClick={() => navigate(p('/services/design'))} className="px-12 py-3 rounded-full bg-[var(--glass-bg)] border border-white/10 hover:bg-[var(--glass-bg)]/80 text-purple-400 font-bold text-xl md:text-2xl transition-all">
                 {t('services.more')}
               </button>
             </ScrollReveal>
@@ -279,19 +280,22 @@ const ServicesPage = () => {
 
       {/* Studio Rental Section */}
       <section className="relative min-h-[60vh] md:min-h-[100vh] flex flex-col items-center justify-center text-center py-12 overflow-visible">
-        <div className="absolute inset-0 z-0">
-          <img src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686452/bbb_k3mvpy.png" alt="Studio Background" className={`w-full h-full object-cover ${language === 'en' ? 'scale-x-[-1]' : ''}`} />
-          <div className="absolute inset-0 "></div>
+        <div className="absolute inset-0 z-0 h-full w-full">
+          <img
+            src="https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768686452/bbb_k3mvpy.png"
+            alt="Studio Background"
+            className="w-full h-full object-cover opacity-100"
+          />
         </div>
         <div className="relative z-10 px-10">
           <ScrollReveal direction="down">
-            <h2 className="text-4xl md:text-[5rem] text-white glow-text mb-8 font-black select-none whitespace-nowrap">{t('service.studio')}</h2>
+            <h2 className="text-4xl md:text-[5rem] text-[var(--text-color)] glow-text mb-8 font-black select-none whitespace-nowrap">{t('service.studio')}</h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
-            <p className="text-gray-200 text-base md:text-2xl max-w-2xl mx-auto leading-relaxed mb-12">{t('service.studio.desc')}</p>
+            <p className="text-[var(--text-color)]/80 text-base md:text-2xl max-w-2xl mx-auto leading-relaxed mb-12">{t('service.studio.desc')}</p>
           </ScrollReveal>
           <ScrollReveal delay={0.4} className="flex justify-center">
-            <button onClick={() => navigate(p('/services/studio-rental'))} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
+            <button onClick={() => navigate(p('/services/studio-rental'))} className="px-12 py-3 rounded-full bg-[var(--glass-bg)] border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-[var(--glass-bg)]/80 transition-all font-bold">{t('services.more')}</button>
           </ScrollReveal>
         </div>
       </section>
@@ -306,10 +310,10 @@ const ServicesPage = () => {
           </div>
           <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-end text-center lg:text-end order-2 lg:order-1">
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
-              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[220px]' : 'lg:translate-x-[220px]'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.web')}</h2>
+              <h2 className={`text-3xl md:text-7xl text-[var(--text-color)] glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[220px]' : 'lg:translate-x-[220px]'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.web')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
-              <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.web.desc')}</p>
+              <p className={`text-[var(--text-color)]/70 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.web.desc')}</p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2} className="w-full relative h-[250px] md:h-[350px] flex items-center justify-center [perspective:1200px]">
@@ -331,7 +335,7 @@ const ServicesPage = () => {
             </ScrollReveal>
 
             <ScrollReveal delay={0.3} className="w-full flex justify-center lg:justify-end">
-              <button onClick={() => navigate(p('/services/web-design'))} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/web-design'))} className="mt-8 px-12 py-3 rounded-full bg-[var(--glass-bg)] border border-white/10 hover:bg-[var(--glass-bg)]/80 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
@@ -347,13 +351,13 @@ const ServicesPage = () => {
           </div>
           <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-start order-2">
             <ScrollReveal direction={language === 'ar' ? 'left' : 'right'}>
-              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-mr-40' : 'lg:-ml-40'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.content')}</h2>
+              <h2 className={`text-3xl md:text-7xl text-[var(--text-color)] glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-mr-40' : 'lg:-ml-40'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.content')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'left' : 'right'}>
-              <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.content.desc')}</p>
+              <p className={`text-[var(--text-color)]/70 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-mr-[100px]' : 'lg:-ml-[100px]'}`}>{t('service.content.desc')}</p>
             </ScrollReveal>
             <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-start lg:pe-20">
-              <button onClick={() => navigate(p('/services/content-writing'))} className="px-12 py-3 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-white/10 transition-all font-bold">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/content-writing'))} className="px-12 py-3 rounded-full bg-[var(--glass-bg)] border border-white/10 text-blue-400 text-xl md:text-2xl hover:bg-[var(--glass-bg)]/80 transition-all font-bold">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>
@@ -369,13 +373,13 @@ const ServicesPage = () => {
           </div>
           <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-end text-center lg:text-end order-2 lg:order-1">
             <ScrollReveal direction={language === 'ar' ? 'right' : 'left'}>
-              <h2 className={`text-3xl md:text-7xl text-white glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[220px]' : 'lg:translate-x-[220px]'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.marketing')}</h2>
+              <h2 className={`text-3xl md:text-7xl text-[var(--text-color)] glow-text mb-6 font-black relative ${language === 'ar' ? 'lg:-translate-x-[220px]' : 'lg:translate-x-[220px]'} z-0 pointer-events-none whitespace-nowrap`}>{t('service.marketing')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={0.1} direction={language === 'ar' ? 'right' : 'left'}>
-              <p className={`text-gray-300 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.marketing.desc')}</p>
+              <p className={`text-[var(--text-color)]/70 text-base md:text-xl max-w-xl leading-loose mb-12 relative ${language === 'ar' ? 'lg:-translate-x-[80px]' : 'lg:translate-x-[80px]'}`}>{t('service.marketing.desc')}</p>
             </ScrollReveal>
             <ScrollReveal delay={0.2} className="w-full flex justify-center lg:justify-end lg:ps-20">
-              <button onClick={() => navigate(p('/services/marketing'))} className="mt-8 px-12 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
+              <button onClick={() => navigate(p('/services/marketing'))} className="mt-8 px-12 py-3 rounded-full bg-[var(--glass-bg)] border border-white/10 hover:bg-[var(--glass-bg)]/80 text-purple-400 font-bold text-xl md:text-2xl transition-all">{t('services.more')}</button>
             </ScrollReveal>
           </div>
         </div>

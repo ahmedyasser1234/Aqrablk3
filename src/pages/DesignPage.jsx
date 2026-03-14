@@ -1,59 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ScrollReveal from '../components/ScrollReveal';
-
-// عينات من أعمال التصميم
-const brandingImages = [
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769009712/design_hook_ehqp2r.png",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  },
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769009712/design_galaxy_fw50ni.png",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  },
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769009711/design_dhai_lak0en.png",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  },
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1769009710/design_d_asmaa_t4at5p.png",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  }
-];
-
-const graphicImages = [
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954658/%D8%A7%D9%84%D8%A7%D9%88_%D9%84-04_iqdx2j.jpg",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  },
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954569/Artboard_7_htbfwd.jpg",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  },
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768954614/%D8%A7%D9%84%D8%A8%D9%88%D8%B3%D8%AA-02_b15blm.jpg",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  },
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768955108/002_w1pz7m.jpg",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  },
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768955493/%D8%A8%D8%B7%D8%A7%D9%82%D8%A7%D8%AA_%D8%A7%D9%84%D8%B5%D9%8A%D8%A7%D9%86%D8%A9_%D8%B5%D9%8A%D8%A7%D9%86%D8%A9_%D9%88%D8%AA%D9%86%D8%B8%D9%8A%D9%81_ayumhy.jpg",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  },
-  {
-    src: "https://res.cloudinary.com/dk3wwuy5d/image/upload/v1768955830/%D8%A7%D8%B9%D9%84%D8%A7%D9%86_%D8%B9%D8%B2%D9%85%D9%8A_%D9%87%D8%AA%D8%AC%D9%85%D8%AF%D9%87%D8%A7_tmtx6s.jpg",
-    link: "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP"
-  }
-];
-
-// ألوان التوهج (أرجواني، وردي، بنفسجي)
-const borderColors = ['#a855f7', '#ec4899', '#8b5cf6'];
+import ServiceRequestModal from '../components/ServiceRequestModal';
+import { API_BASE_URL } from '../config';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const DesignPage = () => {
   const { t, language } = useLanguage();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [brandingImages, setBrandingImages] = useState([]);
+  const [graphicImages, setGraphicImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // ألوان التوهج (أرجواني، وردي، بنفسجي)
+  const borderColors = ['#a855f7', '#ec4899', '#8b5cf6'];
+  const defaultDriveLink = "https://drive.google.com/drive/u/0/folders/1PkhIhaAEiMC4dKLdiqY9aalVzA8HZGAP";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const brandingRes = await fetch(`${API_BASE_URL}/videos?category=design_branding`);
+        const brandingData = await brandingRes.json();
+        if (Array.isArray(brandingData)) setBrandingImages(brandingData.map(v => ({ src: v.youtubeId, link: defaultDriveLink })));
+
+        const graphicRes = await fetch(`${API_BASE_URL}/videos?category=design_graphic`);
+        const graphicData = await graphicRes.json();
+        if (Array.isArray(graphicData)) setGraphicImages(graphicData.map(v => ({ src: v.youtubeId, link: defaultDriveLink })));
+      } catch (err) {
+        console.error('Failed to fetch design data', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (isLoading) return <LoadingSpinner fullPage />;
 
   return (
     <div className="pt-24 px-6 md:px-10 pb-20">
@@ -93,14 +75,20 @@ const DesignPage = () => {
               {t('page.design.desc')}
             </p>
           </ScrollReveal>
-          <ScrollReveal delay={0.4} className="flex gap-4 justify-center lg:justify-start">
+          <ScrollReveal delay={0.4} className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-8 py-3 rounded-full bg-[var(--glass-bg)] border border-purple-500/50 text-purple-400 font-bold hover:bg-[var(--glass-bg)]/80 transition-all inline-block text-center shadow-lg shadow-purple-500/20 flex-1 md:flex-none"
+            >
+              {t('common.order_now')}
+            </button>
             <a
               href="https://wa.me/201099822822"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-full bg-purple-600 text-white font-bold hover:bg-purple-700 transition-all inline-block text-center shadow-lg shadow-purple-500/20"
+              className="px-8 py-3 rounded-full bg-[var(--glass-bg)] border border-green-500/50 text-green-400 font-bold hover:bg-[var(--glass-bg)]/80 hover:shadow-lg hover:shadow-green-500/20 transition-all inline-block text-center flex-1 md:flex-none"
             >
-              {t('common.order_now')}
+              {t('common.order_whatsapp')}
             </a>
           </ScrollReveal>
         </div>
@@ -113,25 +101,30 @@ const DesignPage = () => {
             {t('page.design.gallery_branding')}
           </h2>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {brandingImages.map((item, index) => (
-            <ScrollReveal key={`brand-${index}`} delay={index * 0.1}>
-              <div
-                className="glowing-border-box aspect-[4/3] group"
-                style={{ '--glow-color': borderColors[index % borderColors.length] }}
-              >
-                <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
-                  <img src={item.src} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Branding Work" />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <a href={item.link} className="text-white font-bold border border-white/30 px-6 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-all">
-                      {t('common.view_work')}
-                    </a>
+        {isLoading ? (
+          <div className="text-center py-20 text-pink-400/50 animate-pulse font-bold">Loading Branding...</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+            {brandingImages.length === 0 && <p className="col-span-full text-center text-gray-500">No branding works yet.</p>}
+            {brandingImages.map((item, index) => (
+              <ScrollReveal key={`brand-${index}`} delay={index * 0.1}>
+                <div
+                  className="glowing-border-box aspect-[4/3] group"
+                  style={{ '--glow-color': borderColors[index % borderColors.length] }}
+                >
+                  <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
+                    <img src={item.src.startsWith('/uploads') ? `${API_BASE_URL}${item.src}` : item.src} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Branding Work" />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-white font-bold border border-white/30 px-6 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-all">
+                        {t('common.view_work')}
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* graphic design section */}
@@ -141,30 +134,41 @@ const DesignPage = () => {
             {t('page.design.gallery_graphic')}
           </h2>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {graphicImages.map((item, index) => (
-            <ScrollReveal key={`graphic-${index}`} delay={index * 0.1}>
-              <div
-                className="glowing-border-box aspect-[2/2.5] group"
-                style={{ '--glow-color': borderColors[(index + 1) % borderColors.length] }}
-              >
-                <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
-                  <img src={item.src} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Graphic Design Work" />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <a href={item.link} className="text-white font-bold border border-white/30 px-6 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-all">
-                      {t('common.view_work')}
-                    </a>
+        {isLoading ? (
+          <div className="text-center py-20 text-purple-400/50 animate-pulse font-bold">Loading Graphics...</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+            {graphicImages.length === 0 && <p className="col-span-full text-center text-gray-500">No graphic design works yet.</p>}
+            {graphicImages.map((item, index) => (
+              <ScrollReveal key={`graphic-${index}`} delay={index * 0.1}>
+                <div
+                  className="glowing-border-box aspect-[2/2.5] group"
+                  style={{ '--glow-color': borderColors[(index + 1) % borderColors.length] }}
+                >
+                  <div className="w-full h-full rounded-[2rem] overflow-hidden relative z-10">
+                    <img src={item.src.startsWith('/uploads') ? `${API_BASE_URL}${item.src}` : item.src} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Graphic Design Work" />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-white font-bold border border-white/30 px-6 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-all">
+                        {t('common.view_work')}
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Background Decor */}
       <div className="fixed top-1/2 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse"></div>
       <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-pink-600/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse" style={{ animationDelay: '2s' }}></div>
+
+      <ServiceRequestModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        serviceName={language === 'ar' ? 'تصميم جرافيك' : 'Graphic Design'}
+      />
     </div>
   );
 };

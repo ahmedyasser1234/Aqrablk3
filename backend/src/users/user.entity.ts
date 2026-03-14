@@ -10,4 +10,13 @@ export class User {
 
     @Column()
     password: string; // Will store hashed password
+
+    @Column({ nullable: true })
+    name: string;
+
+    @Column({ default: 'support' })
+    role: string; // 'superadmin' or 'support'
+
+    @Column({ nullable: true })
+    lastSeen: Date;
 }

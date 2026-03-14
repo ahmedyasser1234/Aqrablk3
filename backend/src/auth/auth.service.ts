@@ -11,8 +11,15 @@ export class AuthService {
     ) { }
 
     async validateUser(username: string, pass: string): Promise<any> {
+        console.log(`Validating user: ${username}`);
         const user = await this.usersService.findOne(username);
-        if (user && (await bcrypt.compare(pass, user.password))) {
+        if (!user) {
+            console.log(`User not found: ${username}`);
+            return null;
+        }
+
+        const isMatch = await bcrypt.compare(pass, user.password);
+        if (isMatch) {
             const { password, ...result } = user;
             return result;
         }
@@ -20,9 +27,15 @@ export class AuthService {
     }
 
     async login(user: any) {
-        const payload = { username: user.username, sub: user.id };
+        console.log(`Logging in user: ${user.username}`);
+        const payload = { username: user.username, sub: user.id, role: user.role };
         return {
             access_token: this.jwtService.sign(payload),
+            user: {
+                name: user.name || 'Support',
+                username: user.username,
+                role: user.role
+            }
         };
     }
 
@@ -31,8 +44,16 @@ export class AuthService {
         const existing = await this.usersService.findOne('admin');
         if (!existing) {
             const hashedPassword = await bcrypt.hash('admin123', 10);
-            await this.usersService.create({ username: 'admin', password: hashedPassword });
-            console.log('Admin user created: admin / admin123');
+            await this.usersService.create({
+                username: 'admin',
+                password: hashedPassword,
+                name: 'الدعم الفني', // Default name in Arabic
+                role: 'superadmin'
+            });
+            console.log('Superadmin user created: admin / admin123');
+        } else if (existing.role !== 'superadmin') {
+            await this.usersService.update(existing.id, { role: 'superadmin' });
+            console.log('Existing admin promoted to superadmin');
         }
     }
 }
