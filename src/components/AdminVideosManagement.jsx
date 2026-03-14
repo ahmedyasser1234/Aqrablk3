@@ -7,7 +7,7 @@ import LoadingSpinner from './LoadingSpinner';
 const AdminVideosManagement = ({ token }) => {
     const { language } = useLanguage();
     const navigate = useNavigate();
-    const { lang, serviceType } = useParams();
+    const { serviceType } = useParams();
     const [videos, setVideos] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedService, setSelectedService] = useState(serviceType || null);
@@ -159,7 +159,7 @@ const AdminVideosManagement = ({ token }) => {
                     {Object.entries(serviceConfigs).map(([id, config]) => (
                         <button
                             key={id}
-                            onClick={() => navigate(`/${lang}/dashboard/services/${id}`)}
+                            onClick={() => navigate(`/dashboard/services/${id}`)}
                             className="group relative bg-[#1a1b26]/60 backdrop-blur-xl border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/50 transition-all duration-500 hover:translate-y-[-5px] shadow-2xl overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -230,7 +230,7 @@ const AdminVideosManagement = ({ token }) => {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 px-4">
                 <button
                     onClick={() => {
-                        navigate(`/${lang}/dashboard/services`);
+                        navigate(`/dashboard/services`);
                         setCategoryInputs({});
                     }}
                     className="flex items-center gap-3 text-gray-400 hover:text-white transition-all group bg-white/5 px-6 py-3 rounded-2xl border border-white/5 hover:border-white/10"

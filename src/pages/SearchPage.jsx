@@ -9,7 +9,6 @@ const SearchPage = () => {
     const [searchParams] = useSearchParams();
     const query = searchParams.get('q') || '';
     const { language, t } = useLanguage();
-    const { lang } = useParams();
     const navigate = useNavigate();
     const [results, setResults] = useState({ blogs: [], services: [] });
     const [loading, setLoading] = useState(false);
@@ -86,7 +85,7 @@ const SearchPage = () => {
                                     {results.blogs.map((blog) => (
                                         <div
                                             key={blog.id}
-                                            onClick={() => navigate(`/${lang}/blog/${blog.slug}`)}
+                                            onClick={() => navigate(`/blog/${blog.slug}`)}
                                             className="group bg-[var(--card-bg)] border border-[var(--border-color)] rounded-[2.5rem] overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer"
                                         >
                                             <div className="aspect-video overflow-hidden">
@@ -121,7 +120,7 @@ const SearchPage = () => {
                                     {results.services.map((video) => (
                                         <div
                                             key={video.id}
-                                            onClick={() => navigate(`/${lang}${getServiceLink(video.category)}`)}
+                                            onClick={() => navigate(getServiceLink(video.category))}
                                             className="group bg-[var(--card-bg)] border border-[var(--border-color)] rounded-[2.5rem] overflow-hidden hover:border-purple-500/50 transition-all cursor-pointer"
                                         >
                                             <div className="aspect-video overflow-hidden relative">
@@ -160,7 +159,7 @@ const SearchPage = () => {
                                     {language === 'ar' ? 'حاول استخدام كلمات مفتاحية أخرى' : 'Try searching with different keywords'}
                                 </p>
                                 <button
-                                    onClick={() => navigate(`/${lang}`)}
+                                    onClick={() => navigate(`/`)}
                                     className="px-10 py-4 bg-blue-600 text-white font-black rounded-2xl hover:bg-blue-700 transition-all active:scale-95"
                                 >
                                     {language === 'ar' ? 'العودة للرئيسية' : 'Back to Home'}

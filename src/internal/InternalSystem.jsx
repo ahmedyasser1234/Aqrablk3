@@ -72,11 +72,7 @@ const InternalSystem = () => {
 
     const setActiveTab = (newTab, sub) => {
         const path = sub ? `/${newTab}/${sub}` : `/${newTab}`;
-        if (lang) {
-            navigate(`/${lang}/internal${path}`);
-        } else {
-            navigate(`/internal${path}`);
-        }
+        navigate(`/internal${path}`);
     };
 
     const fetchData = useCallback(async () => {

@@ -66,7 +66,7 @@ const AdminPricingEditor = () => {
             });
 
             if (res.ok) {
-                navigate(`/${language}/dashboard/pricing`); // Go back to hub
+                navigate(`/dashboard/pricing`); // Go back to hub
             } else {
                 alert('Error saving service');
             }
@@ -87,7 +87,7 @@ const AdminPricingEditor = () => {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            if (res.ok) navigate(`/${language}/dashboard/pricing`);
+            if (res.ok) navigate(`/dashboard/pricing`);
         } catch (err) {
             console.error(err);
         }
@@ -135,7 +135,7 @@ const AdminPricingEditor = () => {
             <div className="flex items-center justify-between sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-xl p-4 rounded-3xl border border-white/10 shadow-2xl">
                 <div className="flex items-center gap-4">
                     <button
-                        onClick={() => navigate(`/${language}/dashboard/pricing`)}
+                        onClick={() => navigate(`/dashboard/pricing`)}
                         className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all group"
                     >
                         <svg className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
@@ -430,7 +430,7 @@ const AdminPricingEditor = () => {
             <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/90 to-transparent z-40 pointer-events-none">
                 <div className="max-w-5xl mx-auto flex justify-end gap-4 pointer-events-auto">
                     <button
-                        onClick={() => navigate(`/${language}/dashboard/pricing`)}
+                        onClick={() => navigate(`/dashboard/pricing`)}
                         className="px-8 py-4 bg-[#1a1a1a] border border-white/10 text-gray-400 rounded-2xl font-bold hover:bg-white/10 hover:text-white transition-all shadow-lg backdrop-blur-md"
                     >
                         {language === 'ar' ? 'إلغاء' : 'Cancel'}

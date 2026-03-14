@@ -139,7 +139,7 @@ const AdminPricingHub = () => {
                         </button>
                     )}
                     <button
-                        onClick={() => navigate(`/${language}/dashboard/pricing/new`)}
+                        onClick={() => navigate(`/dashboard/pricing/new`)}
                         className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-bold transition-all shadow-lg hover:shadow-green-500/20 active:scale-95 flex items-center gap-2"
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg>
@@ -153,7 +153,7 @@ const AdminPricingHub = () => {
                 {services.map((service) => (
                     <div
                         key={service.id}
-                        onClick={() => navigate(`/${language}/dashboard/pricing/${service.id}`)}
+                        onClick={() => navigate(`/dashboard/pricing/${service.id}`)}
                         className="bg-[#0f0f0f] border border-white/5 rounded-[2rem] p-8 relative overflow-hidden group hover:border-blue-500/30 hover:shadow-2xl transition-all cursor-pointer min-h-[220px] flex flex-col justify-between"
                     >
                         {/* Top Bar */}
@@ -208,7 +208,7 @@ const AdminPricingHub = () => {
                                 {language === 'ar' ? 'استعادة القيم الافتراضية' : 'Restore Defaults'}
                             </button>
                             <span className="text-gray-600">|</span>
-                            <button onClick={() => navigate(`/${language}/dashboard/pricing/new`)} className="text-green-400 font-bold hover:underline">
+                            <button onClick={() => navigate(`/dashboard/pricing/new`)} className="text-green-400 font-bold hover:underline">
                                 {language === 'ar' ? 'إضافة أول خدمة' : 'Add your first service'}
                             </button>
                         </div>
