@@ -1,4 +1,3 @@
-// src/context/translations.js
 export const TRANSLATIONS = {
   ar: {
     // Navbar
