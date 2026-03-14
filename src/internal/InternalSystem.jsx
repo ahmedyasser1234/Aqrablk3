@@ -12,7 +12,8 @@ import { io } from 'socket.io-client';
 let socket;
 
 const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.startsWith('192.168.') && !window.location.hostname.startsWith('10.');
-export const API = isProduction ? 'https://aqrablkmedia.com/api' : `http://${window.location.hostname}:3545`;
+export const BASE_URL = isProduction ? 'https://aqrablkmedia.com' : `http://${window.location.hostname}:3545`;
+export const API = `${BASE_URL}/api`;
 
 const InternalSystem = () => {
     const [user, setUser] = useState(() => {

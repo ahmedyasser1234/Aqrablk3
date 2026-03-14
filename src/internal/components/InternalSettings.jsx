@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API } from '../InternalSystem';
+import { API, BASE_URL } from '../InternalSystem';
 
 const InternalSettings = ({ user, setUser }) => {
     const [name, setName] = useState(user.name);
@@ -28,8 +28,8 @@ const InternalSettings = ({ user, setUser }) => {
             });
             if (res.ok) {
                 const { url } = await res.json();
-                // Ensure the URL is absolute
-                const finalUrl = url.startsWith('http') ? url : `${API}${url}`;
+                // Ensure the URL is absolute using BASE_URL (no /api prefix)
+                const finalUrl = url.startsWith('http') ? url : `${BASE_URL}${url}`;
                 setAvatar(finalUrl);
                 setMessage({ text: 'تم رفع الصورة بنجاح، لا تنسى حفظ التغييرات', type: 'success' });
             }

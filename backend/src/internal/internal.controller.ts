@@ -152,10 +152,8 @@ export class EmployeesController {
             }
         })
     }))
-    uploadFile(@UploadedFile() file: any, @Req() req: Request) {
-        const protocol = req.protocol;
-        const host = req.get('host');
-        return { url: `${protocol}://${host}/uploads/${file.filename}` };
+    uploadFile(@UploadedFile() file: any) {
+        return { url: `/uploads/${file.filename}` };
     }
 }
 
